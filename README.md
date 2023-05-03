@@ -65,10 +65,10 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
         - service without involving Spring
         - repository without involving Spring
 
-- [] preloaded default notes ✅
-- [] logging preloaded default notes ✅
-- [] custom exceptions ✅
-- [] custom http response messages and status codes ✅
+- [x] preloaded default notes
+- [x] logging preloaded default notes
+- [x] custom exceptions
+- [x] custom http response messages and status codes
 
 **Meta**
 - [] connect branches to github issues and pull requests

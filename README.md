@@ -55,61 +55,63 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 ### Week 1 ###
 
 **Code**
-- [] backend CRUD: 
-    - [] data class that represents the model/domain
-    - [] service class that can handle CRUD operations, communicating with a repository class
-    - [] endpoint class delegate logic to service class that communicates with database through JpaRepository interface
-- [] react CRUD (single page, same URL)
-- [] RESTful API with hyperlinks to relevant operations
-- [] test: - endpoints with @WebMvcTest
+- backend CRUD: 
+    - data class that represents the model/domain
+    - service class that can handle CRUD operations, communicating with a repository class
+    - endpoint class delegate logic to service class that communicates with database through JpaRepository interface
+- react CRUD (single page, same URL)
+- RESTful API with hyperlinks to relevant operations
+- test: - endpoints with @WebMvcTest
         - service without involving Spring
         - repository without involving Spring
 
-- [x] preloaded default notes
-- [x] logging preloaded default notes
-- [x] custom exceptions
-- [x] custom http response messages and status codes
+- preloaded default notes ✅
+- logging preloaded default notes ✅
+- custom exceptions ✅
+- custom http response messages and status codes ✅
 
 **Meta**
-- [] connect branches to github issues and pull requests
-- [] atomic commits
-- [] ppt
+- connect branches to github issues and pull requests
+- atomic commits
+- ppt
 
 ### Week 2 ###
 
 **Code**
-- [] connected to postgres database
-- [] registration & login authentication
-- [] testing
+- connected to postgres database
+- registration & login authentication
+- testing
 
 **Meta**
-- [] atomic commits
-- [] ppt
+- atomic commits
+- ppt
 
 ### Week 3 ###
 
 **Code**
-- [] frontend testing
+- frontend testing
 
 **Meta**
-- [] atomic commits
-- [] ppt
+- atomic commits
+- ppt
 
 ### Week 4 ###
 
 **Code**
-- [] containerized with docker
-- [] downloadable notes
-- [] testing
+- containerized with docker
+- downloadable notes
+- testing
 
 **Meta**
-- [] atomic commits
-- [] ppt
+- atomic commits
+- ppt
 
 ---
 
 **Created: 2023/05/02 (yyyy-mm-dd) <br />
 Last updated: 2023/05/03 (yyyy-mm-dd)**
+
+Any suggestions are welcome!
 
 _Cheers <br />
 Gergő from Hungary, living in Germany_<br />

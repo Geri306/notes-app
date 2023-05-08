@@ -1,15 +1,25 @@
 import './App.css'
-import Table from "./components/table/Table.jsx";
+import NotesTable from "./components/table/NotesTable.jsx";
 import {useFetch} from "./hooks/useFetch.js";
-import {useState} from "react";
+
+const NOTES_URL = "http://localhost:9000/api/v1/notes/get/all";
 
 export default function App() {
-    const [url, setUrl] = useState("http://localhost:9000/api/v1/notes/get/all");
-    const {data: notes, loading, error, fetchData} = useFetch(url);
+    const {data: notes, loading, error, fetchData} = useFetch(NOTES_URL);
 
-    return loading
-        ? <p>Loading...</p>
-        : error
-            ? <p>Error occurred: {error}</p>
-            : <Table notes={notes} fetchData={fetchData} />
+    if (error) {
+        return (
+            <p>Error occurred: {error}</p>
+        )
+    }
+
+    return (
+        <>
+            {loading
+                ? <small>Loading...</small>
+                : <small>Loaded.</small>
+            }
+            <NotesTable notes={notes} fetchData={fetchData}/>
+        </>
+    )
 }

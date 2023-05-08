@@ -2,15 +2,15 @@ import React from "react";
 import Row from "./row/Row.jsx";
 import NewRowButton from "./NewRowButton.jsx";
 import DeleteAllButton from "./DeleteAllButton.jsx";
-import Header from "./Header.jsx";
+import TableHeader from "./TableHeader.jsx";
 
-export default function Table({notes, fetchData}) {
+export default function NotesTable({notes, fetchData}) {
     return (
         <>
             <h2>Notes</h2>
             <table>
                 <thead>
-                <Header/>
+                <TableHeader notes={notes}/>
                 </thead>
                 <tbody>
                 {notes && notes
@@ -21,6 +21,12 @@ export default function Table({notes, fetchData}) {
                              fetchData={fetchData}
                         />
                     )}
+                {notes &&
+                    notes.length === 0 &&
+                    <tr>
+                        <td colSpan={10}>No notes</td>
+                    </tr>
+                }
                 </tbody>
             </table>
             <NewRowButton fetchData={fetchData}/>

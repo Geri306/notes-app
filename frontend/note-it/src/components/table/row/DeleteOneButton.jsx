@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {handleError} from "../../../util/utilfunctions.js";
+import {handleError} from "../../../util/utilFunctions.js";
 
 export default function DeleteOneButton({note, fetchData}) {
     function handleDeleteRow() {
@@ -11,7 +11,10 @@ export default function DeleteOneButton({note, fetchData}) {
 
     return (
         <td>
-            <button onClick={handleDeleteRow}>del</button>
+            <button
+                className={"delBtn"}
+                onClick={handleDeleteRow}
+            >Del</button>
         </td>
     )
 }

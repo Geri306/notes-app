@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {parseLabels} from "../../../util/utilfunctions.js";
+import {parseLabels} from "../../../util/utilFunctions.js";
 
 export default function Label({note, fetchData}) {
     function handleLabelClick() {

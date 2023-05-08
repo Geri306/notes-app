@@ -8,8 +8,7 @@ export default function DeleteAllButton({fetchData}) {
     }
 
     return (
-        <button
-            style={{color: "tomato"}}
+        <button className={"delBtn"}
             onClick={handleDeleteAllButtonClick}
         >Delete all</button>
     )

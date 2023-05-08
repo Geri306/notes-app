@@ -1,5 +1,5 @@
 import React from "react";
-import {updateNoteInDb} from "../../../util/utilfunctions.js";
+import {updateNoteInDb} from "../../../util/utilFunctions.js";
 
 export default function NoteContent({note, fetchData}) {
     function handleNoteContentChange(e) {
@@ -10,7 +10,9 @@ export default function NoteContent({note, fetchData}) {
     return (
         <td>
             <input
+                style={{ textDecoration: note.done && "line-through"}}
                 value={note.content || ""}
+                placeholder={"new note..."}
                 disabled={note.done}
                 onChange={handleNoteContentChange}
             />

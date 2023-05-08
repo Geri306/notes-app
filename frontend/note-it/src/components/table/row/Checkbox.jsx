@@ -1,5 +1,5 @@
 import React from "react";
-import {updateNoteInDb} from "../../../util/utilfunctions.js";
+import {updateNoteInDb} from "../../../util/utilFunctions.js";
 
 export default function Checkbox({note, fetchData}) {
     function handleCheck() {

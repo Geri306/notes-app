@@ -1,13 +1,18 @@
 import React from "react";
 
-export default function TableHeader() {
+export default function TableHeader({notes}) {
     return (
         <tr>
-            <th>#ID</th>
-            <th>Done</th>
-            <th>Note</th>
-            <th>Label</th>
-            <th>Modified</th>
+            {notes && notes.length !== 0 &&
+                Object
+                    .keys(notes[0])
+                    .map((objectKey, i) =>
+                        <th key={i}>
+                            {objectKey.charAt(0).toUpperCase() +
+                                objectKey.slice(1)
+                            }
+                        </th>
+                    )}
         </tr>
     );
 }

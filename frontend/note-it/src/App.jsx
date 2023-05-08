@@ -1,18 +1,11 @@
 import './App.css'
-import Table from "./components/table/Table.jsx";
+import NotesTable from "./components/table/NotesTable.jsx";
 import {useFetch} from "./hooks/useFetch.js";
-import {useState} from "react";
 
 const NOTES_URL = "http://localhost:9000/api/v1/notes/get/all";
 
 export default function App() {
     const {data: notes, loading, error, fetchData} = useFetch(NOTES_URL);
-
-    if (loading) {
-        return (
-            <p>Loading...</p>
-        )
-    }
 
     if (error) {
         return (
@@ -20,5 +13,13 @@ export default function App() {
         )
     }
 
-    return <Table notes={notes} fetchData={fetchData} />
+    return (
+        <>
+            {loading
+                ? <small>Loading...</small>
+                : <small>Loaded.</small>
+            }
+            <NotesTable notes={notes} fetchData={fetchData}/>
+        </>
+    )
 }

@@ -14,7 +14,7 @@
     <artifactId>note-it</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>note-it</name>
-    <description>Note taking app: frontend with React.js backend with Spring Boot</description>
+    <description>Note taking app: frontend with React.js, backend with Spring Boot</description>
 
     <properties>
         <java.version>17</java.version>

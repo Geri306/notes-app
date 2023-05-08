@@ -3,13 +3,22 @@ import Table from "./components/table/Table.jsx";
 import {useFetch} from "./hooks/useFetch.js";
 import {useState} from "react";
 
-export default function App() {
-    const [url, setUrl] = useState("http://localhost:9000/api/v1/notes/get/all");
-    const {data: notes, loading, error, fetchData} = useFetch(url);
+const NOTES_URL = "http://localhost:9000/api/v1/notes/get/all";
 
-    return loading
-        ? <p>Loading...</p>
-        : error
-            ? <p>Error occurred: {error}</p>
-            : <Table notes={notes} fetchData={fetchData} />
+export default function App() {
+    const {data: notes, loading, error, fetchData} = useFetch(NOTES_URL);
+
+    if (loading) {
+        return (
+            <p>Loading...</p>
+        )
+    }
+
+    if (error) {
+        return (
+            <p>Error occurred: {error}</p>
+        )
+    }
+
+    return <Table notes={notes} fetchData={fetchData} />
 }

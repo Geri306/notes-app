@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header() {
+export default function TableHeader() {
     return (
         <tr>
             <th>#ID</th>
@@ -9,5 +9,6 @@ export default function Header() {
             <th>Label</th>
             <th>Modified</th>
         </tr>
-    )
+    );
 }
+

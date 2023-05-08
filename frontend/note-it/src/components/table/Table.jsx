@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./row/Row.jsx";
 import NewRowButton from "./NewRowButton.jsx";
 import DeleteAllButton from "./DeleteAllButton.jsx";
-import Header from "./Header.jsx";
+import TableHeader from "./TableHeader.jsx";
 
 export default function Table({notes, fetchData}) {
     return (
@@ -10,7 +10,7 @@ export default function Table({notes, fetchData}) {
             <h2>Notes</h2>
             <table>
                 <thead>
-                <Header/>
+                    <TableHeader/>
                 </thead>
                 <tbody>
                 {notes && notes

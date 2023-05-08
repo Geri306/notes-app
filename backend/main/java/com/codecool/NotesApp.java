@@ -1,13 +1,11 @@
-package com.geri.notesapp;
+package com.codecool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NotesappApplication {
-
+public class NotesApp {
 	public static void main(String[] args) {
-		SpringApplication.run(NotesappApplication.class, args);
+		SpringApplication.run(NotesApp.class, args);
 	}
-
 }

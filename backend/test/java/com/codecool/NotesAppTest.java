@@ -1,10 +1,10 @@
-package com.geri.notesapp;
+package com.codecool;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NotesappApplicationTests {
+class NotesAppTest {
 
 	@Test
 	void contextLoads() {

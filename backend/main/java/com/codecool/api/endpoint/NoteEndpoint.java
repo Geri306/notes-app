@@ -26,9 +26,9 @@ public class NoteEndpoint {
     private final NoteService noteService;
 
     @PostMapping("new")
-    ResponseEntity<Note> create(@Valid @RequestBody Note note) throws URISyntaxException {
-        log.info("Request to create note: " + note);
-        Note result = noteRepository.save(note);
+    ResponseEntity<Note> create() throws URISyntaxException {
+        log.info("Request to create new note");
+        Note result = noteRepository.save(new Note());
         return ResponseEntity.created(new URI("api/v1/notes/get/" + result.getId()))
                 .body(result);
     }
@@ -70,7 +70,6 @@ public class NoteEndpoint {
                 );
     }
 
-    //    @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("put/nextlabel/{id}")
     ResponseEntity<Note> replaceNote(@PathVariable long id) {
         log.info("Request to change label on note with id: " + id);
@@ -88,7 +87,6 @@ public class NoteEndpoint {
                 );
 
     }
-
 
     @DeleteMapping("delete/one/{id}")
     void deleteOneById(@PathVariable long id) {

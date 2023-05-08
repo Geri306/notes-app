@@ -28,7 +28,7 @@ public class Note {
     )
     private long id;
     @Column(name = "content")
-    private String content;
+    private String content = "";
     @Column(name = "label")
     @Enumerated(value = EnumType.STRING)
     private Label label = Label.GREEN;

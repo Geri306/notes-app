@@ -114,10 +114,10 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 ---
 
 **Created: 2023/05/02 (yyyy-mm-dd) <br />
-Last updated: 2023/05/03 (yyyy-mm-dd)**
+Last updated: 2023/05/09 (yyyy-mm-dd)**
 
 Any suggestions are welcome. 😎
 
 _Cheers <br />
-Gergő from Hungary, living in Germany_<br />
+Gergő from Hungary, currently living in Germany_<br />
 `gergosmith 306 at gmail dot com`

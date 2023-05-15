@@ -1,32 +1,36 @@
-package com.codecool.runner;
+package com.codecool.configuration;
 
 import com.codecool.persistence.entity.Note;
 import com.codecool.persistence.repository.NoteRepository;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "datasets")
-public class DatabasePopulator {
+@Setter
+@Slf4j
+public class DefaultDatasetConfig {
 
     private List<Note> notes;
-    private final Logger log = LoggerFactory.getLogger(DatabasePopulator.class);
+    @Value("${app.loadDefaultDataset:false}")
+    private boolean loadDefaultDataset;
 
     @Bean
     ApplicationRunner populateDatabase(NoteRepository noteRepository) {
         return args -> {
-            noteRepository.saveAll(notes);
-            noteRepository.findAll().forEach(note -> log.info("Preloaded " + note));
+            if (loadDefaultDataset) {
+                noteRepository.saveAll(notes);
+                noteRepository.findAll().forEach(note -> log.info("Preloaded " + note));
+            }
         };
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
     }
 }

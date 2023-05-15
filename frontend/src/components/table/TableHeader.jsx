@@ -7,11 +7,14 @@ export default function TableHeader({notes}) {
                 Object
                     .keys(notes[0])
                     .map((objectKey, i) =>
-                        <th key={i}>
-                            {objectKey.charAt(0).toUpperCase() +
-                                objectKey.slice(1)
-                            }
-                        </th>
+                        i === 0
+                            ? (<th key={i}>#</th>)
+                            : (<th key={i}>
+                                {objectKey.charAt(0)
+                                        .toUpperCase() +
+                                    objectKey.slice(1)
+                                }
+                            </th>)
                     )}
         </tr>
     );

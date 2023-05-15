@@ -1,13 +1,14 @@
 import React from "react";
-import Label from "./Label.jsx";
-import Checkbox from "./Checkbox.jsx";
-import NoteContent from "./NoteContent.jsx";
-import DeleteOneButton from "./DeleteOneButton.jsx";
+import Label from "./row/Label.jsx";
+import Checkbox from "./row/Checkbox.jsx";
+import NoteContent from "./row/NoteContent.jsx";
+import DeleteOneButton from "./row/DeleteOneButton.jsx";
 
-export default function Row({note, fetchData}) {
+export default function TableRow({note, index, fetchData}) {
+    // console.log(note);
     return (
         <tr key={note.id}>
-            <td>{note.id}</td>
+            <td>{index + 1}</td>
             <Checkbox
                 note={note}
                 fetchData={fetchData}

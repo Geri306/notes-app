@@ -4,7 +4,7 @@ import {parseLabels} from "../../../util/utilFunctions.js";
 
 export default function Label({note, fetchData}) {
     function handleLabelClick() {
-        axios.put(`http://localhost:9000/api/v1/notes/put/nextlabel/${note.id}`)
+        axios.put(`/notes/put/nextlabel/${note.id}`)
             .then(() => fetchData())
     }
 

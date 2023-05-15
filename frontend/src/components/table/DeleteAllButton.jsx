@@ -1,15 +1,18 @@
 import React from "react";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
 
 export default function DeleteAllButton({fetchData}) {
     function handleDeleteAllButtonClick() {
-        axios.delete("http://localhost:9000/api/v1/notes/delete/all")
+        axios.delete("/notes/delete/all")
             .then(() => fetchData())
     }
 
     return (
-        <button className={"delBtn"}
+        <Button
+            size="sm"
+            variant="outline-danger"
             onClick={handleDeleteAllButtonClick}
-        >Delete all</button>
+        >Delete all</Button>
     )
 }

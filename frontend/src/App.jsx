@@ -1,8 +1,9 @@
 import './App.css'
-import NotesTable from "./components/table/NotesTable.jsx";
+import NotesTable from "./components/NotesTable.jsx";
 import {useFetch} from "./hooks/useFetch.js";
 
-const NOTES_URL = "http://localhost:9000/api/v1/notes/get/all";
+// const NOTES_URL = "http://localhost:9000/api/v1/notes/get/all";
+const NOTES_URL = "/notes/get/all"; // TODO put it into a .env file
 
 export default function App() {
     const {data: notes, loading, error, fetchData} = useFetch(NOTES_URL);
@@ -15,11 +16,7 @@ export default function App() {
 
     return (
         <>
-            {loading
-                ? <small>Loading...</small>
-                : <small>Loaded.</small>
-            }
-            <NotesTable notes={notes} fetchData={fetchData}/>
+            <NotesTable loading={loading} notes={notes} fetchData={fetchData}/>
         </>
     )
 }

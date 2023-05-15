@@ -1,17 +1,20 @@
 import React from "react";
 import axios from "axios";
 import {handleError} from "../../util/utilFunctions.js";
+import Button from "react-bootstrap/Button";
 
 export default function NewRowButton({fetchData}) {
     function handleNewButtonClick() {
-        axios.post("http://localhost:9000/api/v1/notes/new")
+        axios.post("/notes/new")
             .then(() => fetchData())
             .catch(err => handleError("Error during creating new note. " + err))
     }
 
     return (
-        <button
+        <Button
+            size="sm"
+            style={{margin: ".5rem"}}
             onClick={handleNewButtonClick}
-        >New</button>
+        >New</Button>
     )
 }

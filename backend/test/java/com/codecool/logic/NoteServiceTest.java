@@ -9,10 +9,78 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class NoteServiceTest {
 
-    NoteService noteService = new NoteService(mock(NoteRepository.class));
+    NoteRepository noteRepository = mock(NoteRepository.class);
+    NoteService noteService = new NoteService(noteRepository);
+
+    @Test
+    void findAll() {
+        noteService.findAll();
+
+        verify(noteRepository).findAll();
+    }
+
+    @Test
+    void findById() {
+        Long id = 1L;
+        noteService.findById(id);
+
+        verify(noteRepository).findById(id);
+    }
+
+    @Test
+    void save() {
+        Note note = Note.builder().build();
+        noteService.save(note);
+
+        verify(noteRepository).save(note);
+    }
+
+    @Test
+    void addNewEmptyNote() {
+        Note note = new Note();
+        noteService.addNewEmptyNote();
+
+        verify(noteRepository).save(note);
+    }
+
+    @Test
+    void deleteAll() {
+        noteService.deleteAll();
+
+        verify(noteRepository).deleteAll();
+    }
+
+    @Test
+    void deleteById() {
+        Long id = 1L;
+        noteService.deleteById(id);
+
+        verify(noteRepository).deleteById(id);
+    }
+
+    @Test
+    void resetSequence() {
+        noteService.resetSequence();
+
+        verify(noteRepository).resetSequence();
+    }
+
+    @Test
+    void updateNote() {
+        Long oldId = 1L;
+        Note note1 = Note.builder().id(oldId).build();
+        Long newId = 2L;
+        Note note2 = Note.builder().id(newId).build();
+
+        Long actual = noteService.updateNote(note1, note2).getId();
+
+        assertEquals(oldId, actual);
+    }
+
 
     @Test
     void getNoteWithNextLabel() {

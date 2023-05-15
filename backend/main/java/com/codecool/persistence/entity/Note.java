@@ -32,7 +32,7 @@ public class Note {
             allocationSize = 1
     )
     @Id
-    private long id;
+    private Long id;
     private boolean done = false;
     /*@Column(name = "content")*/
     private String content = "";
@@ -51,11 +51,11 @@ public class Note {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Note note = (Note) o;
-        return id == note.id && done == note.done && Objects.equals(content, note.content) && label == note.label && Objects.equals(modified_L, note.modified_L) && Objects.equals(modified, note.modified);
+        return done == note.done && Objects.equals(id, note.id) && Objects.equals(content, note.content) && label == note.label && Objects.equals(modified_L, note.modified_L) && Objects.equals(modified, note.modified);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, label, done, modified_L, modified);
+        return Objects.hash(id, done, content, label, modified_L, modified);
     }
 }

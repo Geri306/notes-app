@@ -2,16 +2,50 @@ package com.codecool.logic;
 
 import com.codecool.data.Label;
 import com.codecool.persistence.entity.Note;
-import lombok.NoArgsConstructor;
+import com.codecool.persistence.repository.NoteRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-@NoArgsConstructor //TODO: change to @RequiredArgsConstructor after migrating methods
+@RequiredArgsConstructor
 public class NoteService {
-    public Note getUpdatedNote(Note oldNote, Note newNote) {
+
+    private final NoteRepository noteRepository;
+
+    public List<Note> findAll() {
+        return noteRepository.findAll();
+    }
+
+    public Optional<Note> findById(Long id) {
+        return noteRepository.findById(id);
+    }
+
+    public Note save(Note note) {
+        return noteRepository.save(note);
+    }
+
+    public Note addNewEmptyNote() {
+        return noteRepository.save(new Note());
+    }
+
+    public void deleteAll() {
+        noteRepository.deleteAll();
+    }
+
+    public void deleteById(Long id) {
+        noteRepository.deleteById(id);
+    }
+
+    public void resetSequence() {
+        noteRepository.resetSequence();
+    }
+
+    public Note updateNote(Note oldNote, Note newNote) {
         newNote.setId(oldNote.getId());
         return newNote;
     }

@@ -3,8 +3,6 @@ package com.codecool.api.endpoint;
 import com.codecool.api.exception.NoteNotFoundException;
 import com.codecool.logic.NoteService;
 import com.codecool.persistence.entity.Note;
-import com.codecool.persistence.repository.NoteRepository;
-import com.codecool.persistence.repository.QueryRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,37 +21,18 @@ import java.util.Optional;
 public class NoteEndpoint {
 
     //TODO migrate all calls to noteRepository to noteService
-    private final NoteRepository noteRepository;
     private final NoteService noteService;
 
-    @PostMapping("new")
-    ResponseEntity<Note> create() throws URISyntaxException {
-        log.info("Request to create new note");
-        Note result = noteRepository.save(new Note());
-        return ResponseEntity
-                .created(new URI("api/v1/notes/get/" + result.getId()))
-                .body(result);
+    @GetMapping("get/all")
+    List<Note> getAll() {
+        List<Note> notes = noteService.findAll();
+        notes.forEach(noteService::formatDate);
+        return notes;
     }
 
-    // TEST START
-
-/*    @RequestMapping("/handle")
-    @PostMapping
-    public ResponseEntity<String> handle() throws URISyntaxException {
-//        URI location = new URI("api/mydocs");
-//        HttpHeaders responseHeaders = new HttpHeaders();
-//        responseHeaders.setLocation(location);
-//        responseHeaders.set("MyResponseHeader", "MyValue");
-//        return new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.CREATED);
-        URI location = new URI("api/mydocs");
-        return ResponseEntity.created(location).header("MyResponseHeader", "MyValue").body("Hello World");
-    }*/
-
-    // TEST END
-
     @GetMapping("get/{id}")
-    ResponseEntity<?> getOneById(@PathVariable Long id) throws NoteNotFoundException {
-        Optional<Note> result = noteRepository.findById(id);
+    ResponseEntity<?> getOne(@PathVariable Long id) {
+        Optional<Note> result = noteService.findById(id);
         return result
                 .map(note -> {
                     Note formattedNote = noteService.formatDate(note);
@@ -63,56 +42,61 @@ public class NoteEndpoint {
                         "cannot find note with id: " + id));
     }
 
-    @GetMapping("get/all")
-    List<Note> readAll() {
-        noteRepository.findAll().forEach(noteService::formatDate);
-        return noteRepository.findAll();
+    @PostMapping("new")
+    ResponseEntity<Note> post() throws URISyntaxException {
+        log.info("Request to post new note");
+        Note result = noteService.addNewEmptyNote();
+        return ResponseEntity.ok().body(result);
+        //TODO how to test this? because 'result' will be null
+//        return ResponseEntity
+//                .created(new URI("api/v1/notes/get/" + result.getId()))
+//                .body(result);
     }
 
     @PutMapping("put/{id}")
-    ResponseEntity<Note> replaceNote(@Valid @RequestBody Note newNote, @PathVariable long id) {
+    ResponseEntity<Note> put(@Valid @RequestBody Note newNote, @PathVariable Long id) {
         log.info("Request to update note with id: " + id);
-        return noteRepository.findById(id)
+        return noteService.findById(id)
                 .map(oldNote -> {
-                    Note updatedNote = noteService.getUpdatedNote(oldNote, newNote);
-                    Note result = noteRepository.save(updatedNote);
+                    Note updatedNote = noteService.updateNote(oldNote, newNote);
+                    Note result = noteService.save(updatedNote);
                     return ResponseEntity.ok().body(result);
                 })
                 .orElseGet(() -> {
                     newNote.setId(id);
-                    Note result = noteRepository.save(newNote);
+                    Note result = noteService.save(newNote);
                     return ResponseEntity.ok().body(result);
                 });
     }
 
     @PutMapping("put/nextlabel/{id}")
-    ResponseEntity<Note> replaceNote(@PathVariable long id) {
+    ResponseEntity<Note> putNextLabel(@PathVariable Long id) {
         log.info("Request to change label on note with id: " + id);
-        return noteRepository.findById(id)
+        return noteService.findById(id)
                 .map(note -> {
                     Note updatedNote = noteService.getNoteWithNextLabel(note);
-                    noteRepository.save(updatedNote);
+                    noteService.save(updatedNote);
                     return ResponseEntity.ok().body(updatedNote);
                 })
                 .orElseThrow(
-                        () -> new IllegalArgumentException(
+                        () -> new NoteNotFoundException(
                                 "Label change request for non-existing note with id: " + id
                         ));
 
     }
 
-    @DeleteMapping("delete/one/{id}")
-    void deleteOneById(@PathVariable long id) {
-        log.info("Request to delete note with id: " + id);
-        noteRepository.deleteById(id);
-        ResponseEntity.ok().build();
-    }
-
     @DeleteMapping("delete/all")
     public ResponseEntity<?> deleteAll() {
         log.info("Request to delete all notes");
-        noteRepository.deleteAll();
-        noteRepository.resetSequence();
+        noteService.deleteAll();
+        noteService.resetSequence();
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("delete/one/{id}")
+    void deleteOne(@PathVariable Long id) {
+        log.info("Request to delete note with id: " + id);
+        noteService.deleteById(id);
+        ResponseEntity.ok().build();
     }
 }

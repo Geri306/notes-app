@@ -22,7 +22,7 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 - JUnit (tests, parameterized tests)
 - Mockito
 - Postgres ✅
-- React.js ( 1) several components ✅, use of 2) several hooks ✅ and 3) at least one custom hook✅) ✅
+- React.js: 1) several components ✅, use of 2) several hooks ✅ and 3) at least one custom hook✅ ✅
 - React tests (Vitest + React Testing Library)
 - JavaScript + HTML + CSS & Bootstrap ✅
 

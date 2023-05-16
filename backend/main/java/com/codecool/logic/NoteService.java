@@ -22,7 +22,8 @@ public class NoteService {
     }
 
     public Optional<Note> findById(Long id) {
-        return noteRepository.findById(id);
+        Optional<Note> note = noteRepository.findById(id);
+        return note.map(this::formatDate);
     }
 
     public Note save(Note note) {
@@ -50,7 +51,7 @@ public class NoteService {
         return newNote;
     }
 
-    public Note getNoteWithNextLabel(Note note) {
+    public Note assignNextLabelToNote(Note note) {
         int limit = Label.values().length;
         int nextIndex = Label.valueOf(note.getLabel().toString()).ordinal() + 1;
         Label nextLabel = Label.values()[nextIndex % limit];

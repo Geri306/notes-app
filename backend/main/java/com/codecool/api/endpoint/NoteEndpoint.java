@@ -4,99 +4,79 @@ import com.codecool.api.exception.NoteNotFoundException;
 import com.codecool.logic.NoteService;
 import com.codecool.persistence.entity.Note;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/v1/notes/")
-@AllArgsConstructor
+@RequestMapping("api/v1/notes")
+@RequiredArgsConstructor
 @Slf4j
 public class NoteEndpoint {
 
-    //TODO migrate all calls to noteRepository to noteService
     private final NoteService noteService;
 
-    @GetMapping("get/all")
+    @GetMapping
     List<Note> getAll() {
-        List<Note> notes = noteService.findAll();
-        notes.forEach(noteService::formatDate);
-        return notes;
+        return noteService.findAll()
+                .stream()
+                .map(noteService::formatDate)
+                .toList();
     }
 
-    @GetMapping("get/{id}")
-    ResponseEntity<?> getOne(@PathVariable Long id) {
+    @GetMapping("{id}")
+    Note getOne(@PathVariable Long id) {
         Optional<Note> result = noteService.findById(id);
-        return result
-                .map(note -> {
-                    Note formattedNote = noteService.formatDate(note);
-                    return ResponseEntity.ok().body(formattedNote);
-                })
-                .orElseThrow(() -> new NoteNotFoundException(
-                        "cannot find note with id: " + id));
+        return result.map(noteService::formatDate)
+                .orElseThrow(NoteNotFoundException::new);
     }
 
-    @PostMapping("new")
-    ResponseEntity<Note> post() throws URISyntaxException {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    Note save() {
         log.info("Request to post new note");
-        Note result = noteService.addNewEmptyNote();
-        return ResponseEntity.ok().body(result);
-        //TODO how to test this? because 'result' will be null
-//        return ResponseEntity
-//                .created(new URI("api/v1/notes/get/" + result.getId()))
-//                .body(result);
+        return noteService.addNewEmptyNote();
     }
 
-    @PutMapping("put/{id}")
-    ResponseEntity<Note> put(@Valid @RequestBody Note newNote, @PathVariable Long id) {
+    @PutMapping("{id}")
+    Note update(@Valid @RequestBody Note newNote, @PathVariable Long id) {
         log.info("Request to update note with id: " + id);
         return noteService.findById(id)
                 .map(oldNote -> {
                     Note updatedNote = noteService.updateNote(oldNote, newNote);
-                    Note result = noteService.save(updatedNote);
-                    return ResponseEntity.ok().body(result);
+                    return noteService.save(updatedNote);
                 })
                 .orElseGet(() -> {
                     newNote.setId(id);
-                    Note result = noteService.save(newNote);
-                    return ResponseEntity.ok().body(result);
+                    return noteService.save(newNote);
                 });
     }
 
-    @PutMapping("put/nextlabel/{id}")
-    ResponseEntity<Note> putNextLabel(@PathVariable Long id) {
+    @PutMapping("nextlabel/{id}")
+    Note putNextLabel(@PathVariable Long id) {
         log.info("Request to change label on note with id: " + id);
         return noteService.findById(id)
                 .map(note -> {
                     Note updatedNote = noteService.getNoteWithNextLabel(note);
-                    noteService.save(updatedNote);
-                    return ResponseEntity.ok().body(updatedNote);
+                    return noteService.save(updatedNote);
                 })
-                .orElseThrow(
-                        () -> new NoteNotFoundException(
-                                "Label change request for non-existing note with id: " + id
-                        ));
-
+                .orElseThrow(NoteNotFoundException::new);
     }
 
-    @DeleteMapping("delete/all")
-    public ResponseEntity<?> deleteAll() {
+    @DeleteMapping
+    public void deleteAll() {
         log.info("Request to delete all notes");
         noteService.deleteAll();
         noteService.resetSequence();
-        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("delete/one/{id}")
+    @DeleteMapping("{id}")
     void deleteOne(@PathVariable Long id) {
         log.info("Request to delete note with id: " + id);
         noteService.deleteById(id);
-        ResponseEntity.ok().build();
     }
 }

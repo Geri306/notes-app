@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 class NoteEndpointTest {
@@ -24,14 +24,11 @@ class NoteEndpointTest {
     @MockBean
     NoteService noteService;
 
-    @MockBean
-    Note mockNote;
-
     String uri = "api/v1/notes";
 
     @Test
     void getAll() {
-        String getAllUri = uri + "/get/all";
+        String getAllUri = uri;
 
         webTestClient.get()
                 .uri(getAllUri)
@@ -46,7 +43,7 @@ class NoteEndpointTest {
     void getOneFindsEntity() {
         Long id = 1L;
         Note note = Note.builder().id(id).build();
-        String getOneUri = uri + "/get/" + id;
+        String getOneUri = uri + "/" + id;
         when(noteService.findById(id)).thenReturn(Optional.of(note));
 
         webTestClient.get()
@@ -61,7 +58,7 @@ class NoteEndpointTest {
     @Test
     void getOneDoesNotFindEntity() {
         Long id = 1L;
-        String getOneUri = uri + "/get/" + id;
+        String getOneUri = uri + "/" + id;
 
         webTestClient.get()
                 .uri(getOneUri)
@@ -74,13 +71,13 @@ class NoteEndpointTest {
 
     @Test
     void post() {
-        String createUri = uri + "/new";
+        String createUri = uri;
 
         webTestClient.post()
                 .uri(createUri)
                 .exchange()
                 .expectStatus()
-                .is2xxSuccessful();
+                .isCreated();
 
         verify(noteService).addNewEmptyNote();
     }
@@ -88,7 +85,7 @@ class NoteEndpointTest {
     @Test
     void put() {
         Long id = 1L;
-        String putUri = uri + "/put/" + id;
+        String putUri = uri + "/" + id;
         Note note = Note.builder().id(id).build();
 
         webTestClient.put()
@@ -101,10 +98,11 @@ class NoteEndpointTest {
         verify(noteService).save(note);
     }
 
+    // goal: communication works?
     @Test
-    void putNextLabelOnExistingEntity() {
+    void whenPutNextLabelOnNonExistingEntity_thenNotFound() {
         Long id = 1L;
-        String putUri = uri + "/put/nextlabel/" + id;
+        String putUri = uri + "/nextlabel/" + id;
 
         webTestClient.put()
                 .uri(putUri)
@@ -116,8 +114,26 @@ class NoteEndpointTest {
     }
 
     @Test
+    void whenPutNextLabelOnExistingEntity_thenSuccess() {
+        Long id = 1L;
+        String putUri = uri + "/nextlabel/" + id;
+        Note note = Note.builder().id(id).label(Label.GREEN).build();
+        when(noteService.findById(id)).thenReturn(Optional.of(note));
+        when(noteService.assignNextLabelToNote(note)).thenReturn(note);
+        when(noteService.save(note)).thenReturn(note);
+
+        webTestClient.put()
+                .uri(putUri)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful();
+
+        verify(noteService).findById(id);
+    }
+
+    @Test
     void deleteAll() {
-        String deleteAllUri = uri + "/delete/all";
+        String deleteAllUri = uri;
 
         webTestClient.delete()
                 .uri(deleteAllUri)
@@ -131,7 +147,7 @@ class NoteEndpointTest {
     @Test
     void deleteOne() {
         Long id = 1L;
-        String deleteOneUri = uri + "/delete/one/" + id;
+        String deleteOneUri = uri + "/" + id;
 
         webTestClient.delete()
                 .uri(deleteOneUri)

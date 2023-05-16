@@ -30,6 +30,7 @@ public class NoteEndpoint {
     @GetMapping("{id}")
     Note getOne(@PathVariable Long id) {
         return noteService.findById(id)
+                .map(noteService::formatDate) // TODO what if optional empty?
                 .orElseThrow(NoteNotFoundException::new);
     }
 

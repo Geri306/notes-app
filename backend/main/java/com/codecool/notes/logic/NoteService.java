@@ -22,8 +22,7 @@ public class NoteService {
     }
 
     public Optional<Note> findById(Long id) {
-        Optional<Note> note = noteRepository.findById(id);
-        return note.map(this::formatDate);
+        return noteRepository.findById(id);
     }
 
     public Note save(Note note) {

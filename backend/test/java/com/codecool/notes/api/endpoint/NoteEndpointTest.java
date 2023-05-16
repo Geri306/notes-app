@@ -45,6 +45,7 @@ class NoteEndpointTest {
         Note note = Note.builder().id(id).build();
         String getOneUri = uri + "/" + id;
         when(noteService.findById(id)).thenReturn(Optional.of(note));
+        when(noteService.formatDate(note)).thenReturn(note);
 
         webTestClient.get()
                 .uri(getOneUri)

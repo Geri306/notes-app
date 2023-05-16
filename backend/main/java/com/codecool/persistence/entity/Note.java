@@ -9,9 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-
-// consider removing @Data and @EqualsAndHashCode annotations ...
-// ... in JPA entity classes due to performance issues
 @Entity
 @Getter
 @Setter
@@ -21,28 +18,16 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 public class Note {
-
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "note_id_sequence" // default: "note_seq"
-    )
-    @SequenceGenerator(
-            name = "note_id_sequence",
-            sequenceName = "note_id_sequence",
-            allocationSize = 1
-    )
     @Id
+    @GeneratedValue
     private Long id;
     private boolean done = false;
-    /*@Column(name = "content")*/
     private String content = "";
-    // without @Enumerated(...) the label would have a numerical value in the database
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Label label = Label.GREEN;
     @UpdateTimestamp
     @JsonIgnore
     private LocalDateTime modified_L;
-    // To ignore a field, annotate it with @Transient so it will not be mapped by hibernate.
     @Transient
     private String modified;
 

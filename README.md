@@ -80,7 +80,7 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 - Spring Security (with basic authentication and Oauth2 Resource  Server for JWT)
 - test:
     - Spring security tests (@WithMockUser)
-    - Spring tests (@SpringBootTest, @WebMvcTest, @DataJpaTest)
+    - Spring tests (@SpringBootTest, @WebMvcTest, @DataJpaTest ✅)
     - endpoints with @WebMvcTest
     - service without involving Spring
     - repository without involving Spring

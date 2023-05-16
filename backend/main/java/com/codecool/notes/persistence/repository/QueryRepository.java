@@ -1,4 +1,4 @@
-package com.codecool.persistence.repository;
+package com.codecool.notes.persistence.repository;
 
 import org.springframework.data.jpa.repository.Query;
 

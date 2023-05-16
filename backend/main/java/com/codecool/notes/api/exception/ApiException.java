@@ -1,4 +1,4 @@
-package com.codecool.api.exception;
+package com.codecool.notes.api.exception;
 
 import lombok.Getter;
 import lombok.ToString;

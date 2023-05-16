@@ -1,4 +1,4 @@
-package com.codecool;
+package com.codecool.notes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

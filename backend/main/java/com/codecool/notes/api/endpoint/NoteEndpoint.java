@@ -1,8 +1,8 @@
-package com.codecool.api.endpoint;
+package com.codecool.notes.api.endpoint;
 
-import com.codecool.api.exception.NoteNotFoundException;
-import com.codecool.logic.NoteService;
-import com.codecool.persistence.entity.Note;
+import com.codecool.notes.api.exception.NoteNotFoundException;
+import com.codecool.notes.logic.NoteService;
+import com.codecool.notes.persistence.entity.Note;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

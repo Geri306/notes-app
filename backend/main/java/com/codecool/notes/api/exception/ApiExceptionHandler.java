@@ -1,4 +1,4 @@
-package com.codecool.api.exception;
+package com.codecool.notes.api.exception;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

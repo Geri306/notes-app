@@ -1,4 +1,4 @@
-package com.codecool.data;
+package com.codecool.notes.data;
 
 public enum Label {
     GREEN,

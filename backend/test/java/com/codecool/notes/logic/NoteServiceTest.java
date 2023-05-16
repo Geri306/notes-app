@@ -1,8 +1,8 @@
-package com.codecool.logic;
+package com.codecool.notes.logic;
 
-import com.codecool.data.Label;
-import com.codecool.persistence.entity.Note;
-import com.codecool.persistence.repository.NoteRepository;
+import com.codecool.notes.data.Label;
+import com.codecool.notes.persistence.entity.Note;
+import com.codecool.notes.persistence.repository.NoteRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

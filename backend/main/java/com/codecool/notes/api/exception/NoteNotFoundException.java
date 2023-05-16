@@ -1,28 +1,28 @@
-package com.codecool.api.exception;
+package com.codecool.notes.api.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class NoteIdMismatchException extends Exception {
+public class NoteNotFoundException extends RuntimeException {
     // disable stack trace
     @Override
     public synchronized Throwable fillInStackTrace() {
         return this;
     }
 
-    public NoteIdMismatchException() {
+    public NoteNotFoundException() {
     }
 
-    public NoteIdMismatchException(String message) {
+    public NoteNotFoundException(String message) {
         super(message);
     }
 
-    public NoteIdMismatchException(String message, Throwable cause) {
+    public NoteNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public NoteIdMismatchException(Throwable cause) {
+    public NoteNotFoundException(Throwable cause) {
         super(cause);
     }
 }

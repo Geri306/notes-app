@@ -1,6 +1,6 @@
-package com.codecool.persistence.entity;
+package com.codecool.notes.persistence.entity;
 
-import com.codecool.data.Label;
+import com.codecool.notes.data.Label;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

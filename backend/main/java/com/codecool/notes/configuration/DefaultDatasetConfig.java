@@ -1,7 +1,7 @@
-package com.codecool.configuration;
+package com.codecool.notes.configuration;
 
-import com.codecool.persistence.entity.Note;
-import com.codecool.persistence.repository.NoteRepository;
+import com.codecool.notes.persistence.entity.Note;
+import com.codecool.notes.persistence.repository.NoteRepository;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

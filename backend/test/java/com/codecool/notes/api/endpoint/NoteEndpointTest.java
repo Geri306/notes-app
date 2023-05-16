@@ -1,8 +1,8 @@
-package com.codecool.api.endpoint;
+package com.codecool.notes.api.endpoint;
 
-import com.codecool.data.Label;
-import com.codecool.logic.NoteService;
-import com.codecool.persistence.entity.Note;
+import com.codecool.notes.data.Label;
+import com.codecool.notes.logic.NoteService;
+import com.codecool.notes.persistence.entity.Note;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

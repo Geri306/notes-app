@@ -27,7 +27,7 @@ public class Note {
     private Label label = Label.GREEN;
     @UpdateTimestamp
     @JsonIgnore
-    private LocalDateTime modified_L;
+    private LocalDateTime modifiedLong;
     @Transient
     private String modified;
 
@@ -36,11 +36,11 @@ public class Note {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Note note = (Note) o;
-        return done == note.done && Objects.equals(id, note.id) && Objects.equals(content, note.content) && label == note.label && Objects.equals(modified_L, note.modified_L) && Objects.equals(modified, note.modified);
+        return done == note.done && Objects.equals(id, note.id) && Objects.equals(content, note.content) && label == note.label && Objects.equals(modifiedLong, note.modifiedLong) && Objects.equals(modified, note.modified);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, done, content, label, modified_L, modified);
+        return Objects.hash(id, done, content, label, modifiedLong, modified);
     }
 }

@@ -60,7 +60,7 @@ public class NoteService {
     }
 
     public Note formatDate(Note note) {
-        LocalDateTime old = note.getModified_L();
+        LocalDateTime old = note.getModifiedLong();
         String formatted = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm").format(old);
         note.setModified(formatted);
         return note;

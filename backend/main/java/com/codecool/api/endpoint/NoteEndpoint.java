@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/notes")
@@ -30,8 +29,7 @@ public class NoteEndpoint {
 
     @GetMapping("{id}")
     Note getOne(@PathVariable Long id) {
-        Optional<Note> result = noteService.findById(id);
-        return result.map(noteService::formatDate)
+        return noteService.findById(id)
                 .orElseThrow(NoteNotFoundException::new);
     }
 
@@ -61,7 +59,7 @@ public class NoteEndpoint {
         log.info("Request to change label on note with id: " + id);
         return noteService.findById(id)
                 .map(note -> {
-                    Note updatedNote = noteService.getNoteWithNextLabel(note);
+                    Note updatedNote = noteService.assignNextLabelToNote(note);
                     return noteService.save(updatedNote);
                 })
                 .orElseThrow(NoteNotFoundException::new);

@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class NoteServiceTest {
 
@@ -83,11 +82,11 @@ class NoteServiceTest {
 
 
     @Test
-    void getNoteWithNextLabel() {
+    void assignNextLabelToNote() {
         Note note = Note.builder().label(Label.GREEN).build();
         Label expected = Label.YELLOW;
 
-        Label actual = noteService.getNoteWithNextLabel(note).getLabel();
+        Label actual = noteService.assignNextLabelToNote(note).getLabel();
 
         assertEquals(expected, actual);
     }

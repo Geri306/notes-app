@@ -95,7 +95,7 @@ class NoteServiceTest {
     void formatDate() {
         String unformatted = "2023-05-15T17:26:34.609611300";
         LocalDateTime parsed = LocalDateTime.parse(unformatted);
-        Note note = Note.builder().modified_L(parsed).build();
+        Note note = Note.builder().modifiedLong(parsed).build();
         String expected = "2023/05/15 17:26";
 
         Note formattedNote = noteService.formatDate(note);

@@ -10,21 +10,36 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 **Summary**: I as a private person need a simple, secure and customized digital note-taking app to help me navigate in today's information overloaded world.
 
 ### Stack ###
-- IntelliJ ✅
-- Maven ✅
-- Java (data/service classes, Streams) ✅
-- Spring Framework + Spring Boot ✅
-- Spring Web (CRUD functionality in a @RestController) ✅
-- Spring Data JPA (at least one @Entity with a repository and an H2 database) ✅
-- Spring Security (with basic authentication and Oauth2 Resource  Server for JWT)
-- Spring tests (@SpringBootTest, @WebMvcTest, @DataJpaTest)
-- Spring security tests (@WithMockUser)
-- JUnit (tests, parameterized tests)
-- Mockito
-- Postgres ✅
-- React.js: 1) several components ✅, use of 2) several hooks ✅ and 3) at least one custom hook✅ ✅
-- React tests (Vitest + React Testing Library)
-- JavaScript + HTML + CSS & Bootstrap ✅
+- IDE: IntelliJ
+- Build: Maven
+- [x] Java (data/service classes, Streams)
+- Spring Framework + Spring Boot
+- [x] Spring Web:
+  - [x] CRUD functionality in a @RestController)
+- [x] Spring Data JPA:
+  - [x] at least one @Entity with a repository
+  - [x] H2 database)
+- [] Spring Security
+  - [] basic authentication
+  - [] Oauth2 Resource Server for JWT
+- [/] Spring tests
+  - [x] @SpringBootTest
+  - [] @WebMvcTest
+  - [x] @DataJpaTest
+- [] Spring security tests (@WithMockUser)
+- [/] JUnit:
+  - [x] tests
+  - [] parameterized tests
+- [x] Mockito
+- [x] Postgres
+- [x] React.js:
+  - [x] several components
+  - [x] use of several hooks
+  - [x] at least one custom hook
+- [] React tests:
+  - [] Vitest
+  - [] React Testing Library
+- [x] JavaScript + HTML + CSS & Bootstrap
 
 ### Core features: ###
 - frontend CRUD with React.js 🛠️
@@ -68,9 +83,6 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 - custom http response messages and status codes ✅
 - connected to postgres database ✅
 
-**Meta**
-- ppt ✅
-
 ### Week 2 ###
 
 **Code**
@@ -88,17 +100,10 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
     - mockito
     - React tests (Vitest + React Testing Library)
 
-**Meta**
-- ppt
-
 ### Week 3 ###
 
 **Code**
 - frontend testing
-
-**Meta**
-- atomic commits
-- ppt
 
 ### Week 4 ###
 
@@ -106,10 +111,6 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 - containerized with docker
 - downloadable notes
 - testing
-
-**Meta**
-- atomic commits
-- ppt
 
 ---
 

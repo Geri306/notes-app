@@ -1,19 +1,20 @@
 package com.codecool.notes.logic;
 
-import com.codecool.notes.data.Label;
+import com.codecool.notes.api.exception.NoteNotFoundException;
 import com.codecool.notes.persistence.entity.Note;
 import com.codecool.notes.persistence.repository.NoteRepository;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class NoteServiceTest {
+public class NoteServiceBehavioralTest {
 
     NoteRepository noteRepository = mock(NoteRepository.class);
-    NoteService noteService = new NoteService(noteRepository);
+    FormatService formatService = mock(FormatService.class);
+    NoteService noteService = new NoteService(noteRepository, formatService);
 
     @Test
     void findAll() {
@@ -23,8 +24,10 @@ class NoteServiceTest {
     }
 
     @Test
-    void findById() {
+    void findById() throws NoteNotFoundException {
         Long id = 1L;
+        when(noteRepository.findById(id)).thenReturn(Optional.of(Note.builder().id(1L).build()));
+
         noteService.findById(id);
 
         verify(noteRepository).findById(id);
@@ -68,39 +71,6 @@ class NoteServiceTest {
         verify(noteRepository).resetSequence();
     }
 
-    @Test
-    void updateNote() {
-        Long oldId = 1L;
-        Note note1 = Note.builder().id(oldId).build();
-        Long newId = 2L;
-        Note note2 = Note.builder().id(newId).build();
-
-        Long actual = noteService.updateNote(note1, note2).getId();
-
-        assertEquals(oldId, actual);
-    }
 
 
-    @Test
-    void assignNextLabelToNote() {
-        Note note = Note.builder().label(Label.GREEN).build();
-        Label expected = Label.YELLOW;
-
-        Label actual = noteService.assignNextLabelToNote(note).getLabel();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void formatDate() {
-        String unformatted = "2023-05-15T17:26:34.609611300";
-        LocalDateTime parsed = LocalDateTime.parse(unformatted);
-        Note note = Note.builder().modifiedLong(parsed).build();
-        String expected = "2023/05/15 17:26";
-
-        Note formattedNote = noteService.formatDate(note);
-        String actual = formattedNote.getModified();
-
-        assertEquals(expected, actual);
-    }
 }

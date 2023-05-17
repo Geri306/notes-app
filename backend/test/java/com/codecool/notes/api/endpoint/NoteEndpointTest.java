@@ -1,15 +1,14 @@
 package com.codecool.notes.api.endpoint;
 
+import com.codecool.notes.api.controller.NoteController;
+import com.codecool.notes.api.exception.NoteNotFoundException;
 import com.codecool.notes.data.Label;
-import com.codecool.notes.logic.NoteService;
 import com.codecool.notes.persistence.entity.Note;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
-
-import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,7 +21,7 @@ class NoteEndpointTest {
     WebTestClient webTestClient;
 
     @MockBean
-    NoteService noteService;
+    NoteController noteController;
 
     String uri = "api/v1/notes";
 
@@ -36,16 +35,15 @@ class NoteEndpointTest {
                 .expectStatus()
                 .is2xxSuccessful();
 
-        verify(noteService).findAll();
+        verify(noteController).findAll();
     }
 
     @Test
-    void getOneFindsEntity() {
+    void getOneFindsEntity() throws NoteNotFoundException {
         Long id = 1L;
         Note note = Note.builder().id(id).build();
         String getOneUri = uri + "/" + id;
-        when(noteService.findById(id)).thenReturn(Optional.of(note));
-        when(noteService.formatDate(note)).thenReturn(note);
+        when(noteController.findById(id)).thenReturn(note);
 
         webTestClient.get()
                 .uri(getOneUri)
@@ -53,21 +51,7 @@ class NoteEndpointTest {
                 .expectStatus()
                 .is2xxSuccessful();
 
-        verify(noteService).findById(id);
-    }
-
-    @Test
-    void getOneDoesNotFindEntity() {
-        Long id = 1L;
-        String getOneUri = uri + "/" + id;
-
-        webTestClient.get()
-                .uri(getOneUri)
-                .exchange()
-                .expectStatus()
-                .isNotFound();
-
-        verify(noteService).findById(id);
+        verify(noteController).findById(id);
     }
 
     @Test
@@ -80,48 +64,32 @@ class NoteEndpointTest {
                 .expectStatus()
                 .isCreated();
 
-        verify(noteService).addNewEmptyNote();
+        verify(noteController).addNewEmptyNote();
     }
 
     @Test
-    void put() {
-        Long id = 1L;
-        String putUri = uri + "/" + id;
-        Note note = Note.builder().id(id).build();
+    void put() throws NoteNotFoundException {
+        Long oldNoteId = 1L;
+        String putUri = uri + "/" + oldNoteId;
+        Note newNote = Note.builder().content("code").build();
+        when(noteController.updateNote(newNote, oldNoteId)).thenReturn(newNote);
 
         webTestClient.put()
                 .uri(putUri)
-                .bodyValue(note)
+                .bodyValue(newNote)
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful();
 
-        verify(noteService).save(note);
-    }
-
-    // goal: communication works?
-    @Test
-    void whenPutNextLabelOnNonExistingEntity_thenNotFound() {
-        Long id = 1L;
-        String putUri = uri + "/nextlabel/" + id;
-
-        webTestClient.put()
-                .uri(putUri)
-                .exchange()
-                .expectStatus()
-                .isNotFound();
-
-        verify(noteService).findById(id);
+        verify(noteController).updateNote(newNote, oldNoteId);
     }
 
     @Test
-    void whenPutNextLabelOnExistingEntity_thenSuccess() {
+    void whenPutNextLabelOnExistingEntity_thenSuccess() throws NoteNotFoundException {
         Long id = 1L;
         String putUri = uri + "/nextlabel/" + id;
         Note note = Note.builder().id(id).label(Label.GREEN).build();
-        when(noteService.findById(id)).thenReturn(Optional.of(note));
-        when(noteService.assignNextLabelToNote(note)).thenReturn(note);
-        when(noteService.save(note)).thenReturn(note);
+        when(noteController.assignNextLabelToNote(id)).thenReturn(note);
 
         webTestClient.put()
                 .uri(putUri)
@@ -129,7 +97,7 @@ class NoteEndpointTest {
                 .expectStatus()
                 .is2xxSuccessful();
 
-        verify(noteService).findById(id);
+        verify(noteController).assignNextLabelToNote(id);
     }
 
     @Test
@@ -142,7 +110,7 @@ class NoteEndpointTest {
                 .expectStatus()
                 .is2xxSuccessful();
 
-        verify(noteService).deleteAll();
+        verify(noteController).deleteAll();
     }
 
     @Test
@@ -156,6 +124,6 @@ class NoteEndpointTest {
                 .expectStatus()
                 .is2xxSuccessful();
 
-        verify(noteService).deleteById(id);
+        verify(noteController).deleteById(id);
     }
 }

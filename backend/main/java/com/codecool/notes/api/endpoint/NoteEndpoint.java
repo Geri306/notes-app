@@ -1,7 +1,7 @@
 package com.codecool.notes.api.endpoint;
 
+import com.codecool.notes.api.controller.NoteController;
 import com.codecool.notes.api.exception.NoteNotFoundException;
-import com.codecool.notes.logic.NoteService;
 import com.codecool.notes.persistence.entity.Note;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,66 +17,46 @@ import java.util.List;
 @Slf4j
 public class NoteEndpoint {
 
-    private final NoteService noteService;
+    private final NoteController noteController;
 
     @GetMapping
     List<Note> getAll() {
-//        return List.of(Note.builder().id(1L).content("code").build());
-        return noteService.findAll()
-                .stream()
-//                .map(noteService::formatDate)
-                .toList();
+        return noteController.findAll();
     }
 
     @GetMapping("{id}")
-    Note getOne(@PathVariable Long id) {
-        return noteService.findById(id)
-                .map(noteService::formatDate) // TODO what if optional empty?
-                .orElseThrow(NoteNotFoundException::new);
+    Note getOne(@PathVariable Long id) throws NoteNotFoundException {
+        return noteController.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Note save() {
+    Note post() {
         log.info("Request to post new note");
-        return noteService.addNewEmptyNote();
+        return noteController.addNewEmptyNote();
     }
 
-    @PutMapping("{id}")
-    Note update(@Valid @RequestBody Note newNote, @PathVariable Long id) {
-        log.info("Request to update note with id: " + id);
-        return noteService.findById(id)
-                .map(oldNote -> {
-                    Note updatedNote = noteService.updateNote(oldNote, newNote);
-                    return noteService.save(updatedNote);
-                })
-                .orElseGet(() -> {
-                    newNote.setId(id);
-                    return noteService.save(newNote);
-                });
+    @PutMapping("{oldNoteId}")
+    Note put(@Valid @RequestBody Note newNote, @PathVariable Long oldNoteId) throws NoteNotFoundException {
+        log.info("Request to update note with id: " + oldNoteId);
+        return noteController.updateNote(newNote, oldNoteId);
     }
 
     @PutMapping("nextlabel/{id}")
-    Note putNextLabel(@PathVariable Long id) {
+    Note putNextLabel(@PathVariable Long id) throws NoteNotFoundException {
         log.info("Request to change label on note with id: " + id);
-        return noteService.findById(id)
-                .map(note -> {
-                    Note updatedNote = noteService.assignNextLabelToNote(note);
-                    return noteService.save(updatedNote);
-                })
-                .orElseThrow(NoteNotFoundException::new);
+        return noteController.assignNextLabelToNote(id);
     }
 
     @DeleteMapping
     public void deleteAll() {
         log.info("Request to delete all notes");
-        noteService.deleteAll();
-        noteService.resetSequence();
+        noteController.deleteAll();
     }
 
     @DeleteMapping("{id}")
     void deleteOne(@PathVariable Long id) {
         log.info("Request to delete note with id: " + id);
-        noteService.deleteById(id);
+        noteController.deleteById(id);
     }
 }

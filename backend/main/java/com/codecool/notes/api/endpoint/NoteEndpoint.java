@@ -21,9 +21,10 @@ public class NoteEndpoint {
 
     @GetMapping
     List<Note> getAll() {
+//        return List.of(Note.builder().id(1L).content("code").build());
         return noteService.findAll()
                 .stream()
-                .map(noteService::formatDate)
+//                .map(noteService::formatDate)
                 .toList();
     }
 

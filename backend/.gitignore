@@ -11,9 +11,10 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-WORKING.md
+../WORKING.md
 /backend/main/resources/application.properties
-/ideas
+/.mvn/
+/htmlReport/
 
 
 # AWS User-specific
@@ -353,5 +354,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij,intellij+all,intellij+iml,linux,windows,macos
-
-/.mvn/

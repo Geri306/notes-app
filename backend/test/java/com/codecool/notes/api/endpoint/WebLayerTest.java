@@ -61,10 +61,9 @@ public class WebLayerTest {
 
     @Test
     public void whenPostNote_thenReturnJson() throws Exception {
-
         Note note = Note.builder().id(1L).build();
-
-        given(noteController.addNewEmptyNote()).willReturn(note);
+        given(noteController.addNewEmptyNote())
+                .willReturn(note);
 
         mvc.perform(post("/api/v1/notes")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -72,8 +71,6 @@ public class WebLayerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(1)));
 
-        verify(noteController, times(1)).addNewEmptyNote();
-        reset(noteService);
-        reset(noteController);
+        verify(noteController).addNewEmptyNote();
     }
 }

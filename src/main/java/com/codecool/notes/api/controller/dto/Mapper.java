@@ -5,7 +5,6 @@ import com.codecool.notes.persistence.entity.Note;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Component
 public class Mapper {

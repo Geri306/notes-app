@@ -1,7 +1,6 @@
 package com.codecool.notes.api.controller;
 
 import com.codecool.notes.api.controller.dto.Mapper;
-import com.codecool.notes.api.controller.dto.NoteDTO;
 import com.codecool.notes.api.exception.NoteNotFoundException;
 import com.codecool.notes.logic.NoteService;
 import com.codecool.notes.persistence.entity.Note;
@@ -9,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Controller
 @RequiredArgsConstructor

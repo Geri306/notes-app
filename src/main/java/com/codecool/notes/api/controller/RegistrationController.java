@@ -19,10 +19,10 @@ public class RegistrationController {
     private final RegistrationService registrationService;
     private final FormatterService formatterService;
 
-    public void register(RegistrationDto registrationDto) throws InvalidEmailException, InvalidPasswordException {
+    public void register(RegistrationDto registrationDto, boolean asAdmin) throws InvalidEmailException, InvalidPasswordException {
         String decoded = formatterService.decode(registrationDto.encodedAuth());
         Map<String, String> credentials = formatterService.split(decoded);
         validationService.validate(credentials);
-        registrationService.register(credentials, registrationDto.asAdmin());
+        registrationService.register(credentials, asAdmin);
     }
 }

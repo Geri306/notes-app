@@ -7,6 +7,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,18 +47,22 @@ public class NoteEndpoint {
     }
 
     @PutMapping("nextlabel/{id}")
+    @Secured("ROLE_ADMIN")
     Note putNextLabel(@PathVariable Long id) throws NoteNotFoundException {
         log.info("Request to change label on note with id: " + id);
         return noteController.assignNextLabelToNote(id);
     }
 
     @DeleteMapping
+    @Secured("ROLE_ADMIN")
     void deleteAll() {
         log.info("Request to delete all notes");
         noteController.deleteAll();
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Secured("ROLE_ADMIN")
     void deleteOne(@PathVariable Long id) {
         log.info("Request to delete note with id: " + id);
         noteController.deleteById(id);

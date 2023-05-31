@@ -1,7 +1,7 @@
 import React from "react";
-import {updateNoteInDb} from "../../../../util/utilFunctions.js";
+import {updateNoteInDb} from "../../../util/utilFunctions.js";
 
-export default function Checkbox({note, fetchData}) {
+export default function Checkbox({note, fetchData, roles}) {
     function handleCheck() {
         updateNoteInDb(note.id, {...note, done: !note.done})
             .then(() => fetchData())
@@ -13,7 +13,7 @@ export default function Checkbox({note, fetchData}) {
                 type={"checkbox"}
                 checked={note.done}
                 onChange={handleCheck}
-                // disabled={}
+                disabled={!roles.includes("ADMIN")}
             />
         </td>
     )

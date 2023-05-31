@@ -1,5 +1,6 @@
 app:
   loadDefaultDataset: true
+  loadDefaultUsers: false
 
 datasets:
   notes:
@@ -23,3 +24,18 @@ datasets:
       label: YELLOW
       done: false
       modifiedLong: 2023-04-29T20:10:17.599125
+
+defaultusers:
+  admins:
+    -
+      email: admin@gmail.com
+      password: Admin!111
+      roles:
+        - ADMIN
+        - USER
+  users:
+    -
+      email: user@gmail.com
+      password: User!111
+      roles:
+        - USER

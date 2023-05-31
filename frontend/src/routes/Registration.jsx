@@ -4,7 +4,7 @@ import axios from "axios";
 import {BASE_URL} from "../App.jsx";
 import {Buffer} from "buffer";
 
-export default function Registration() {
+export default function Registration({roles}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isAdmin, setIsAdmin] = useState(false)
@@ -13,7 +13,8 @@ export default function Registration() {
     const authString = `${username}:${password}`;
     const encodedAuth = Buffer.from(authString).toString('base64');
 
-    const url = `${BASE_URL}/register`;
+    const url = `${BASE_URL}/register${isAdmin ? "/admin" : ""}`;
+    console.log(url);
     const data = {
         "encodedAuth": encodedAuth,
         "asAdmin": isAdmin
@@ -63,12 +64,15 @@ export default function Registration() {
                 </label>
             </div>
             <div>
+                {roles.includes("ADMIN") &&
                 <label> As admin:
                     <input type="checkbox"
                            name="isAdmin"
                            onChange={() => setIsAdmin(!isAdmin)}
                     />
                 </label>
+                }
+
             </div>
             <div>
                 <input type="submit"

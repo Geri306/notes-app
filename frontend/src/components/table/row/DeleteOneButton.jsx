@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import {handleError} from "../../../../util/utilFunctions.js";
+import {handleError} from "../../../util/utilFunctions.js";
 import Button from 'react-bootstrap/Button';
 
 export default function DeleteOneButton({note, fetchData}) {

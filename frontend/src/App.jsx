@@ -9,13 +9,14 @@ import {useState} from "react";
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function App() {
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [roles, setRoles] = useState([]);
 
+    console.log(roles);
     return (
         <Routes>
-            <Route path="/" element={<Index isAdmin={isAdmin}/>} />
-            <Route path="register" element={<Registration/>}/>
-            <Route path="login" element={<Login setIsAdmin={setIsAdmin}/>}/>
+            <Route path="/" element={<Index roles={roles}/>} />
+            <Route path="register" element={<Registration roles={roles}/>}/>
+            <Route path="login" element={<Login setRoles={setRoles}/>}/>
             <Route path="*" element={<UnknownPage/>}/>
         </Routes>
     )

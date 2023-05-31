@@ -18,9 +18,9 @@ import java.util.List;
 @Slf4j
 public class DefaultDatasetConfig {
 
-    private List<Note> notes;
     @Value("${app.loadDefaultDataset:false}")
     private boolean loadDefaultDataset;
+    private List<Note> notes;
 
     @Bean
     ApplicationRunner populateDatabase(NoteRepository noteRepository) {

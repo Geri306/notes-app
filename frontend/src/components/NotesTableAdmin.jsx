@@ -1,9 +1,11 @@
 import React from "react";
 import TableRow from "./table/TableRow.jsx";
+import NewRowButton from "./table/NewRowButton.jsx";
+import DeleteAllButton from "./table/DeleteAllButton.jsx";
 import TableHeader from "./table/TableHeader.jsx";
 import {Spinner} from "react-bootstrap";
 
-export default function NotesTableUser({loading, notes, fetchData}) {
+export default function NotesTableAdmin({loading, notes, fetchData, roles}) {
     return (
         <>
             <h3>N{loading
@@ -22,6 +24,7 @@ export default function NotesTableUser({loading, notes, fetchData}) {
                                   index={i}
                                   note={note}
                                   fetchData={fetchData}
+                                  roles={roles}
                         />
                     )}
                 {notes &&
@@ -32,6 +35,8 @@ export default function NotesTableUser({loading, notes, fetchData}) {
                 }
                 </tbody>
             </table>
+            {roles.includes("USER") && <NewRowButton fetchData={fetchData}/>}
+            {roles.includes("ADMIN") && <DeleteAllButton fetchData={fetchData}/>}
         </>
     )
 }

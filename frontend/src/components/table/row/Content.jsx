@@ -1,7 +1,7 @@
 import React from "react";
-import {updateNoteInDb} from "../../../../util/utilFunctions.js";
+import {updateNoteInDb} from "../../../util/utilFunctions.js";
 
-export default function Content({note, fetchData}) {
+export default function Content({note, fetchData, roles}) {
     function handleNoteContentChange(e) {
         updateNoteInDb(note.id, {...note, content: e.target.value})
             .then(() => fetchData())
@@ -13,7 +13,7 @@ export default function Content({note, fetchData}) {
                 style={{ textDecoration: note.done && "line-through"}}
                 value={note.content || ""}
                 placeholder={"new note..."}
-                disabled={note.done}
+                disabled={note.done || !roles.includes("ADMIN")}
                 onChange={handleNoteContentChange}
             />
         </td>

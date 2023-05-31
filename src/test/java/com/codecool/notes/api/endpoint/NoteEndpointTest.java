@@ -1,7 +1,7 @@
 package com.codecool.notes.api.endpoint;
 
 import com.codecool.notes.api.controller.NoteController;
-import com.codecool.notes.api.exception.NoteNotFoundException;
+import com.codecool.notes.api.exception.note.NoteNotFoundException;
 import com.codecool.notes.data.Label;
 import com.codecool.notes.persistence.entity.Note;
 import org.junit.jupiter.api.Test;
@@ -56,10 +56,8 @@ class NoteEndpointTest {
 
     @Test
     void post() {
-        String createUri = uri;
-
         webTestClient.post()
-                .uri(createUri)
+                .uri(uri)
                 .exchange()
                 .expectStatus()
                 .isCreated();
@@ -79,7 +77,9 @@ class NoteEndpointTest {
                 .bodyValue(newNote)
                 .exchange()
                 .expectStatus()
-                .is2xxSuccessful();
+                .is2xxSuccessful()
+                        .expectBody(Note.class)
+                                .isEqualTo(newNote);
 
         verify(noteController).updateNote(newNote, oldNoteId);
     }

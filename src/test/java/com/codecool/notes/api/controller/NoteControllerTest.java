@@ -1,6 +1,6 @@
 package com.codecool.notes.api.controller;
 
-import com.codecool.notes.api.exception.NoteNotFoundException;
+import com.codecool.notes.api.exception.note.NoteNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

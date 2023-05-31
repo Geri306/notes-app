@@ -1,5 +1,9 @@
 package com.codecool.notes.api.exception;
 
+import com.codecool.notes.api.exception.note.NoteIdMismatchException;
+import com.codecool.notes.api.exception.note.NoteNotFoundException;
+import com.codecool.notes.api.exception.validation.InvalidEmailException;
+import com.codecool.notes.api.exception.validation.InvalidPasswordException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +37,40 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = NoteIdMismatchException.class)
     public ResponseEntity<Object> handleNoteNotFoundException(
             NoteIdMismatchException e
+    ) {
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                e,
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now()
+        );
+
+        return new ResponseEntity<>(
+                apiException,
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(value = InvalidEmailException.class)
+    public ResponseEntity<Object> invalidEmailExceptionException(
+            InvalidEmailException e
+    ) {
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                e,
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now()
+        );
+
+        return new ResponseEntity<>(
+                apiException,
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(value = InvalidPasswordException.class)
+    public ResponseEntity<Object> invalidPasswordException(
+            InvalidPasswordException e
     ) {
         ApiException apiException = new ApiException(
                 e.getMessage(),

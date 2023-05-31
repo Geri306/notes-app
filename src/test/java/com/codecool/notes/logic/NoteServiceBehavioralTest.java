@@ -1,6 +1,8 @@
 package com.codecool.notes.logic;
 
-import com.codecool.notes.api.exception.NoteNotFoundException;
+import com.codecool.notes.api.exception.note.NoteNotFoundException;
+import com.codecool.notes.logic.note.NoteMaintainer;
+import com.codecool.notes.logic.note.NoteService;
 import com.codecool.notes.persistence.entity.Note;
 import com.codecool.notes.persistence.repository.NoteRepository;
 import org.junit.jupiter.api.Test;
@@ -13,8 +15,8 @@ import static org.mockito.Mockito.*;
 public class NoteServiceBehavioralTest {
 
     NoteRepository noteRepository = mock(NoteRepository.class);
-    FormatService formatService = mock(FormatService.class);
-    NoteService noteService = new NoteService(noteRepository, formatService);
+    NoteMaintainer noteMaintainer = mock(NoteMaintainer.class);
+    NoteService noteService = new NoteService(noteRepository, noteMaintainer);
 
     @Test
     void findAll() {

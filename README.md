@@ -54,7 +54,7 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 - custom http response messages and status codes ✅
 
 ### Extra features (if time allows): ###
-- RESTful API with hyperlinks to relevant operations
+- RESTful API with hyperlinks to relevant operations (HATEOAS)
 - grouping of tasks
 - deletable profile
 - delete all note marked as "done"

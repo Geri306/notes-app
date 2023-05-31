@@ -1,22 +1,22 @@
-import './App.css'
-import NotesTable from "./components/NotesTable.jsx";
-import {useFetch} from "./hooks/useFetch.js";
+import './styles/App.css'
+import Login from "./routes/Login.jsx";
+import UnknownPage from "./routes/UnknownPage.jsx";
+import {Route, Routes} from "react-router-dom";
+import Index from "./routes/Index.jsx";
+import Registration from "./routes/Registration.jsx";
+import {useState} from "react";
 
-// const NOTES_URL = "http://localhost:9000/api/v1/notes/get/all";
-const NOTES_URL = "/notes/get/all"; // TODO put it into a .env file
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export default function App() {
-    const {data: notes, loading, error, fetchData} = useFetch(NOTES_URL);
-
-    if (error) {
-        return (
-            <p>Error occurred: {error}</p>
-        )
-    }
+    const [isAdmin, setIsAdmin] = useState(false);
 
     return (
-        <>
-            <NotesTable loading={loading} notes={notes} fetchData={fetchData}/>
-        </>
+        <Routes>
+            <Route path="/" element={<Index isAdmin={isAdmin}/>} />
+            <Route path="register" element={<Registration/>}/>
+            <Route path="login" element={<Login setIsAdmin={setIsAdmin}/>}/>
+            <Route path="*" element={<UnknownPage/>}/>
+        </Routes>
     )
 }

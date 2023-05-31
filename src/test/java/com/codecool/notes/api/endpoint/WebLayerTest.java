@@ -1,7 +1,7 @@
 package com.codecool.notes.api.endpoint;
 
 import com.codecool.notes.api.controller.NoteController;
-import com.codecool.notes.logic.NoteService;
+import com.codecool.notes.logic.note.NoteService;
 import com.codecool.notes.persistence.entity.Note;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

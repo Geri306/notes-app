@@ -1,8 +1,8 @@
 package com.codecool.notes.api.controller;
 
-import com.codecool.notes.api.controller.dto.Mapper;
-import com.codecool.notes.api.exception.NoteNotFoundException;
-import com.codecool.notes.logic.NoteService;
+//import com.codecool.notes.api.controller.dto.Mapper;
+import com.codecool.notes.api.exception.note.NoteNotFoundException;
+import com.codecool.notes.logic.note.NoteService;
 import com.codecool.notes.persistence.entity.Note;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoteController {
     private final NoteService noteService;
-    private final Mapper mapper;
+//    private final Mapper mapper;
 
     public List<Note> findAll() {
         return noteService.findAll()

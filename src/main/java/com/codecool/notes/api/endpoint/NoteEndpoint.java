@@ -1,7 +1,7 @@
 package com.codecool.notes.api.endpoint;
 
 import com.codecool.notes.api.controller.NoteController;
-import com.codecool.notes.api.exception.NoteNotFoundException;
+import com.codecool.notes.api.exception.note.NoteNotFoundException;
 import com.codecool.notes.persistence.entity.Note;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +49,7 @@ public class NoteEndpoint {
     }
 
     @DeleteMapping
-    public void deleteAll() {
+    void deleteAll() {
         log.info("Request to delete all notes");
         noteController.deleteAll();
     }

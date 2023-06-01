@@ -1,5 +1,6 @@
 package com.codecool.notes.security;
 
+//import com.codecool.notes.configuration.CorsFilterConfig;
 import com.codecool.notes.persistence.entity.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,23 +21,34 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
+
+    private final AppBasicAuthenticationEntryPoint authenticationEntryPoint;
+//    private final CorsFilterConfig corsFilterConfig;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
+//                .cors(cors -> corsFilterConfig.corsFilter())
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/v1/notes","/login", "/register").permitAll()
+//                        .requestMatchers("/api/v1/notes")
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
-//                .sessionManagement((session) -> session.sessionCreationPolicy(STATELESS))
-//                .exceptionHandling(entryPoint -> unauthorizedEntryPoint())
+//                .authenticationManager(authentication -> authenticationEntryPoint())
+//                .authenticationProvider(authenticationEntryPoint)
+                .sessionManagement((session) -> session.sessionCreationPolicy(STATELESS))
+//                .exceptionHandling(entry -> authenticationEntryPoint())
                 .build();
     }
 
@@ -55,13 +67,19 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationEntryPoint unauthorizedEntryPoint() {
         return (request, response, authException) -> {
-            response.setHeader("WWW-Authenticate", "Bearer realm=\"example\"");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            System.err.println("ENTERED");
+            response.setHeader("WWW-Authenticate", "Basic realm=\"example\"");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorizeddd");
         };
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    @Bean
+    TokenGenerator tokenGenerator() {
+        return new TokenGenerator();
     }
 }

@@ -22,6 +22,12 @@ export function handleError(message, error) {
     throw new Error(message + error)
 }
 
+export function toHomePage() {
+    setTimeout(() => {
+        window.location = ("/");
+    }, 1_000);
+}
+
 
 
 

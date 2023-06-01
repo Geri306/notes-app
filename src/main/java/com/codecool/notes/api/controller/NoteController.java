@@ -5,6 +5,7 @@ import com.codecool.notes.api.exception.note.NoteNotFoundException;
 import com.codecool.notes.logic.note.NoteService;
 import com.codecool.notes.persistence.entity.Note;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;

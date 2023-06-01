@@ -14,6 +14,7 @@ public class User {
     private String password;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> authorities;
+    private String token;
 
     public long getId() {
         return id;
@@ -46,4 +47,5 @@ public class User {
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
     }
+
 }

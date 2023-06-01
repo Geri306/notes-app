@@ -24,7 +24,7 @@ public class RegistrationEndpoint {
         registrationController.register(registrationDto, false);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("admin")
     void registerAdmin(@RequestBody RegistrationDto registrationDto) throws InvalidPasswordException, InvalidEmailException {
         registrationController.register(registrationDto, true);

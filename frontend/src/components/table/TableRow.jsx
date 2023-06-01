@@ -23,10 +23,12 @@ export default function TableRow({note, index, fetchData, roles}) {
                 roles={roles}
             />
             <td>{note.modified}</td>
-             <DeleteOneButton
-                note={note}
-                fetchData={fetchData}
-            />
+            {roles.includes("USER") &&
+                <DeleteOneButton
+                    note={note}
+                    fetchData={fetchData}
+                />
+            }
         </tr>
     )
 }

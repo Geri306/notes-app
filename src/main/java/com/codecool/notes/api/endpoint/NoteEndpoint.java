@@ -23,6 +23,7 @@ public class NoteEndpoint {
 
     private final NoteController noteController;
 
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     List<Note> getAll() {
         return noteController.findAll();
@@ -35,34 +36,35 @@ public class NoteEndpoint {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('USER')")
     Note post() {
         log.info("Request to post new note");
         return noteController.addNewEmptyNote();
     }
 
     @PutMapping("{oldNoteId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Note put(@Valid @RequestBody Note newNote, @PathVariable Long oldNoteId) throws NoteNotFoundException {
         log.info("Request to update note with id: " + oldNoteId);
         return noteController.updateNote(newNote, oldNoteId);
     }
 
     @PutMapping("nextlabel/{id}")
-    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Note putNextLabel(@PathVariable Long id) throws NoteNotFoundException {
         log.info("Request to change label on note with id: " + id);
         return noteController.assignNextLabelToNote(id);
     }
 
     @DeleteMapping
-    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     void deleteAll() {
         log.info("Request to delete all notes");
         noteController.deleteAll();
     }
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     void deleteOne(@PathVariable Long id) {
         log.info("Request to delete note with id: " + id);
         noteController.deleteById(id);

@@ -36,7 +36,6 @@ public class NoteEndpoint {
 
     @GetMapping
     public List<Note> getAll() {
-        System.out.println("ASDF");
 //        System.out.println("authorizationHeader = " + authorizationHeader);
 //        String encodedCredentials = authorizationHeader.substring("Basic ".length());
 //        byte[] decodedBytes = Base64.getDecoder().decode(encodedCredentials);

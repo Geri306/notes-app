@@ -9,7 +9,10 @@ export default function NotesTable({loading, notes, fetchData, roles}) {
     return (
         <>
             <h3>N{loading
-                ? <Spinner variant="dark" animation="border" size="sm"/>
+                ? <Spinner variant="dark"
+                           animation="border"
+                           size="sm"
+                />
                 : "o"
             }tes</h3>
             <table>
@@ -35,8 +38,11 @@ export default function NotesTable({loading, notes, fetchData, roles}) {
                 }
                 </tbody>
             </table>
-            {roles.includes("USER") && <NewRowButton fetchData={fetchData}/>}
-            {(roles.includes("ADMIN") && (notes && notes.length !== 0)) && <DeleteAllButton fetchData={fetchData}/>}
+            {roles.includes("USER") &&
+                <NewRowButton fetchData={fetchData}/>}
+            {(roles.includes("ADMIN") &&
+                (notes && notes.length !== 0)) &&
+                <DeleteAllButton fetchData={fetchData}/>}
         </>
     )
 }

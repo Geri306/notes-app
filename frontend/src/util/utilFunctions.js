@@ -1,4 +1,3 @@
-import axios from 'axios';
 import axiosInstance from "./apiClient.js";
 
 export function parseLabels(label) {
@@ -20,12 +19,6 @@ export async function updateNoteInDb(wantedId, updatedNote) {
 
 export function handleError(message, error) {
     console.error(message + error)
-}
-
-export function toHomePage() {
-    setTimeout(() => {
-        window.location = ("/");
-    }, 1_000);
 }
 
 

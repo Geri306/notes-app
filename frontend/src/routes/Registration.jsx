@@ -23,16 +23,16 @@ export default function Registration({roles}) {
     async function handleRegister(e) {
         e.preventDefault();
         if (!username || !password) {
-            return window.alert("username and password cannot be empty")
+            return alert("username and password cannot be empty")
         }
         try {
             await axios.post(url, data)
-            window.alert("registration successful, you'll be redirected..")
+            alert("registration successful, you'll be redirected..")
             navigate("/login");
         } catch (err) {
             console.log(err)
             const {response: {data: {message}}} = err
-            window.alert(message)
+            alert(message)
         }
     }
 

@@ -1,8 +1,8 @@
-import '../styles/App.css'
+import '../styles/app.css'
 import NotesTable from "../components/NotesTable.jsx";
 import {useFetch} from "../hooks/useFetch.jsx";
-import NavBar from "./NavBar.jsx";
-const NOTES_URL = "/notes"; // TODO put it into a .env file
+import NavBar from "../components/NavBar.jsx";
+const NOTES_URL = "/notes";
 
 export default function Index({roles, loggedIn}) {
     const {data: notes, loading, error, fetchData} = useFetch(NOTES_URL);

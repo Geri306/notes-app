@@ -17,35 +17,27 @@ export default function Login({setRoles, setLoggedIn}) {
         }
     }
 
-    const url = `${BASE_URL}/login`;
+    const URL = `${BASE_URL}/login`;
 
     async function handleLogin(e) {
         e.preventDefault();
         if (!email || !password) {
-            return window.alert("email and password cannot be empty")
+            return alert("email and password cannot be empty")
         }
         try {
-            // const response = await axios.get(url, requestOptions);
-            const response = await axios.get(url, requestOptions /*{ withCredentials: true }*/);
-            // console.log(response);
-            if (response.status === 200) {
-                console.log(response);
-                const {data} = response
-                const {email, roles, credentials} = data
-                localStorage.setItem("credentials", credentials);
-                setLoggedIn(email);
-                setRoles(roles)
-                localStorage.setItem("roles", roles)
-                window.alert(`login successful with [${roles}] role(s), you'll be redirected..`);
-                navigate("/")
-            }
+            const {data: {email, roles, credentials}} = await axios.get(URL, requestOptions);
+            localStorage.setItem("credentials", credentials);
+            localStorage.setItem("roles", roles)
+            setLoggedIn(email);
+            setRoles(roles)
+            alert(`login successful with [${roles}] role(s), you'll be redirected..`);
+            navigate("/")
         } catch (err) {
             console.error(err)
             const {response: {data}} = err
-            window.alert(data)
+            alert(data)
         }
     }
-
 
     function handleCancel() {
         navigate("/")

@@ -7,6 +7,7 @@ import Registration from "./routes/Registration.jsx";
 import {useEffect, useState} from "react";
 import Logout from "./routes/Logout.jsx";
 import {toHomePage} from "./util/utilFunctions.js";
+import {Buffer} from "buffer";
 
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -17,19 +18,27 @@ export default function App() {
     useEffect(() => {
         const storedCredentials = localStorage.getItem("credentials")
         if (storedCredentials) {
-            setLoggedIn(storedCredentials)
+            const buffer = Buffer.from(storedCredentials, 'base64');
+            const email = buffer.toString('utf-8').split(":")[0]
+            setLoggedIn(email)
+            const roles = localStorage.getItem("roles").split(",")
+            setRoles(roles)
+        }
+        if (!storedCredentials) {
+            localStorage.removeItem("roles")
         }
     }, []);
 
     function handleLogout() {
         localStorage.removeItem("credentials")
+        localStorage.removeItem("roles")
         setLoggedIn(null)
         toHomePage()
     }
 
     return (
         <Routes>
-            <Route path="/" element={<Index roles={roles} loggedIn={loggedIn}/>} />
+            <Route path="/" element={<Index roles={roles} setRoles={setRoles} loggedIn={loggedIn}/>} />
             <Route path="register" element={<Registration roles={roles}/>}/>
             <Route path="login" element={<Login setRoles={setRoles} setLoggedIn={setLoggedIn}/>}/>
             <Route path="logout" element={<Logout handleLogout={handleLogout}/>}/>

@@ -5,7 +5,7 @@ import DeleteAllButton from "./table/DeleteAllButton.jsx";
 import TableHeader from "./table/TableHeader.jsx";
 import {Spinner} from "react-bootstrap";
 
-export default function NotesTableAdmin({loading, notes, fetchData, roles}) {
+export default function NotesTable({loading, notes, fetchData, roles}) {
     return (
         <>
             <h3>N{loading
@@ -36,7 +36,7 @@ export default function NotesTableAdmin({loading, notes, fetchData, roles}) {
                 </tbody>
             </table>
             {roles.includes("USER") && <NewRowButton fetchData={fetchData}/>}
-            {roles.includes("ADMIN") && <DeleteAllButton fetchData={fetchData}/>}
+            {(roles.includes("ADMIN") && (notes && notes.length !== 0)) && <DeleteAllButton fetchData={fetchData}/>}
         </>
     )
 }

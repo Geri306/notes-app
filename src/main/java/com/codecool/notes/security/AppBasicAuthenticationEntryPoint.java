@@ -26,7 +26,7 @@ public class AppBasicAuthenticationEntryPoint
 
     @Override
     public void afterPropertiesSet() {
-        setRealmName("howtodoinjava");
+        setRealmName("notes");
         super.afterPropertiesSet();
     }
 }

@@ -1,22 +1,26 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-export const useFetch = (url) => {
+export const useFetch = (url, loggedIn, setRoles) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const fetchData = async () => {
         const cred = localStorage.getItem("credentials")
-        // console.log(cred);
-        const requestOptions = {
+        const requestOptions = loggedIn ? {
             headers: {
                 Authorization: `Basic ${cred}`
             }
-        }
+        } : {
+            headers: {
+                Authorization: `Basic sfsdgkljdsfj`
+            }
+        };
+
         try {
             setLoading(true);
-            const response = await axios.get(url/*, requestOptions*/);
+            const response = await axios.get("http://localhost:9000/api/v1/notes"/*, requestOptions*/);
             if (response.status !== 200) {
                 throw new Error(response.status + ", " + response.statusText);
             }

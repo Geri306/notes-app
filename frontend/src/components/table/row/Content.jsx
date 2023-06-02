@@ -13,7 +13,7 @@ export default function Content({note, fetchData, roles}) {
                 style={{ textDecoration: note.done && "line-through"}}
                 value={note.content || ""}
                 placeholder={"new note..."}
-                disabled={note.done || !roles.includes("ADMIN")}
+                disabled={note.done || !roles.includes("USER")}
                 onChange={handleNoteContentChange}
             />
         </td>

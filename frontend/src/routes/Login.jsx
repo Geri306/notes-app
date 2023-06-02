@@ -9,45 +9,12 @@ export default function Login({setRoles, setLoggedIn}) {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    // START
-
-
-    // const handleLogin = async (e) => {
-    //     try {
-    //         // Send login request to backend
-    //         const response = await axios.post(
-    //             "http://localhost:8080/login",
-    //             { username, password },
-    //             { withCredentials: true }
-    //         );
-    //
-    //         // Store credentials in local storage
-    //         localStorage.setItem("credentials", JSON.stringify(response.data));
-    //
-    //         // Set logged in status to true
-    //         setLoggedIn(true);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-
     const authString = `${email}:${password}`;
     const encodedAuth = Buffer.from(authString).toString('base64');
-    /* const requestOptions = {
-         headers: {
-             Authorization: `Basic ${encodedAuth}`
-         }
-     }*/
-    const config = {
-        auth: {
-            email: email,
-            password: password
+    const requestOptions = {
+        headers: {
+            Authorization: `Basic ${encodedAuth}`
         }
-    }
-    const data = {
-        email: email,
-        password: password
     }
 
     const url = `${BASE_URL}/login`;
@@ -59,18 +26,16 @@ export default function Login({setRoles, setLoggedIn}) {
         }
         try {
             // const response = await axios.get(url, requestOptions);
-            const response = await axios.post(url, data /*{ withCredentials: true }*/);
-            console.log(response);
+            const response = await axios.get(url, requestOptions /*{ withCredentials: true }*/);
+            // console.log(response);
             if (response.status === 200) {
+                console.log(response);
                 const {data} = response
                 const {email, roles, credentials} = data
-
-                // Store credentials in local storage
                 localStorage.setItem("credentials", credentials);
-
-                // Set logged in status to true
                 setLoggedIn(email);
-                setRoles(roles);
+                setRoles(roles)
+                localStorage.setItem("roles", roles)
                 window.alert(`login successful with [${roles}] role(s), you'll be redirected..`);
                 navigate("/")
             }

@@ -14,7 +14,6 @@ export default function Registration({roles}) {
     const encodedAuth = Buffer.from(authString).toString('base64');
 
     const url = `${BASE_URL}/register${isAdmin ? "/admin" : ""}`;
-    console.log(url);
     const data = {
         "encodedAuth": encodedAuth,
         "asAdmin": isAdmin
@@ -30,7 +29,7 @@ export default function Registration({roles}) {
             alert("registration successful, you'll be redirected..")
             navigate("/login");
         } catch (err) {
-            console.log(err)
+            console.error(err)
             const {response: {data: {message}}} = err
             alert(message)
         }

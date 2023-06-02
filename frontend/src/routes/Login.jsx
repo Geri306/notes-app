@@ -25,8 +25,8 @@ export default function Login({setRoles, setLoggedIn}) {
             return alert("email and password cannot be empty")
         }
         try {
-            const {data: {email, roles, credentials}} = await axios.get(URL, requestOptions);
-            localStorage.setItem("credentials", credentials);
+            const {data: {email, roles}} = await axios.get(URL, requestOptions);
+            localStorage.setItem("credentials", encodedAuth);
             localStorage.setItem("roles", roles)
             setLoggedIn(email);
             setRoles(roles)

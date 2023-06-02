@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosInstance from "./apiClient.js";
 
 export function parseLabels(label) {
     return label === "GREEN"
@@ -10,7 +11,7 @@ export function parseLabels(label) {
 
 export async function updateNoteInDb(wantedId, updatedNote) {
     try {
-        await axios.put(`/notes/${wantedId}`, updatedNote);
+        await axiosInstance.put(`api/v1/notes/${wantedId}`, updatedNote);
     } catch (err) {
         handleError("Error during update: " + err)
     }

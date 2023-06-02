@@ -1,22 +1,19 @@
 import React from "react";
-import axios from "axios";
 import Button from 'react-bootstrap/Button';
+import axiosInstance from "../../../util/apiClient.js";
 
 export default function DeleteOneButton({note, fetchData}) {
-
-    const requestOptions = {
-        headers: {
-            Authorization: `Basic ${localStorage.getItem("credentials")}`
-        }
-    }
-
     function handleDeleteRow() {
         if (!window.confirm("Are you sure to delete this notes?")) {
             return
         }
-        axios.delete(`/notes/${note.id}`, requestOptions)
+        axiosInstance.delete(`api/v1/notes/${note.id}`)
             .then(() => fetchData())
-            .catch(err => alert(`${err.response.status} - ${err.response.statusText} `));
+            .catch(err => {
+                const {response:{data: {message, status}}} = err
+                alert(`${message} - ${status} `)
+            }
+    );
     }
     return (
         <td>

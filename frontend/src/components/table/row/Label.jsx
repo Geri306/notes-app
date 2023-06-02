@@ -1,18 +1,18 @@
 import React from "react";
-import axios from "axios";
 import {parseLabels} from "../../../util/utilFunctions.js";
+import axiosInstance from "../../../util/apiClient.js";
 
 export default function Label({note, fetchData, roles}) {
     function handleLabelClick() {
         if (!roles.includes("ADMIN")) {
             return
         }
-        axios.put(`/notes/nextlabel/${note.id}`)
+        axiosInstance.put(`api/v1/notes/nextlabel/${note.id}`)
             .then(() => fetchData())
     }
 
     return (
-        <td onClick={handleLabelClick}>
+        <td className="clickable" onClick={handleLabelClick}>
             {parseLabels(note.label)}
         </td>
     )

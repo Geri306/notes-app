@@ -10,7 +10,8 @@ export default function Checkbox({note, fetchData, roles}) {
     return (
         <td>
             <input
-                type={"checkbox"}
+                type="checkbox"
+                className="clickable"
                 checked={note.done}
                 onChange={handleCheck}
                 disabled={!roles.includes("ADMIN")}

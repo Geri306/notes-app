@@ -14,7 +14,6 @@ public class User {
     private String password;
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> authorities;
-    private String token;
 
     public long getId() {
         return id;
@@ -48,4 +47,13 @@ public class User {
         this.authorities = authorities;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", authorities=" + authorities +
+                '}';
+    }
 }

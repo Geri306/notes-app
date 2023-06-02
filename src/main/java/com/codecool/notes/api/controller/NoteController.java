@@ -1,11 +1,9 @@
 package com.codecool.notes.api.controller;
 
-//import com.codecool.notes.api.controller.dto.Mapper;
 import com.codecool.notes.api.exception.note.NoteNotFoundException;
 import com.codecool.notes.logic.note.NoteService;
 import com.codecool.notes.persistence.entity.Note;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -14,18 +12,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoteController {
     private final NoteService noteService;
-//    private final Mapper mapper;
 
     public List<Note> findAll() {
         return noteService.findAll()
                 .stream()
                 .map(noteService::formatDate)
                 .toList();
-//        return noteService.findAll()
-//                .stream()
-//                .map(mapper::toDto)
-//                .map(noteService::formatDate)
-//                .collect(toList());
     }
 
     public Note findById(Long id) throws NoteNotFoundException {

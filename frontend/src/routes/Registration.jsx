@@ -63,13 +63,14 @@ export default function Registration({roles}) {
                     />
                 </label>
             </div>
-            {/*{roles.includes("ADMIN") && }*/}
+            {roles.includes("ADMIN") &&
                 <label> As admin:
                     <input type="checkbox"
                            name="isAdmin"
                            onChange={() => setIsAdmin(!isAdmin)}
                     />
                 </label>
+            }
 
             <div>
 

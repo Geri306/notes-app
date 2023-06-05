@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
         config.headers.Authorization = `Basic ${localStorage.getItem("credentials")}`;
+        config.withCredentials = true;
         return config;
     },
     (error) => {

@@ -19,29 +19,21 @@ import java.util.List;
 @Slf4j
 public class UsersPopulator {
 
-    @Value("${app.loadDefaultUsers:false}")
+    @Value("${app.loadDefaultUsers}")
     private boolean loadDefaultUsers;
-    private List<User> admins;
     private List<User> users;
 
     @Bean
-    ApplicationRunner populator(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    ApplicationRunner populateUsers(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            if (loadDefaultUsers) {
-                User admin = new User();
-                User user = new User();
-
-                admin.setEmail(admins.get(0).getEmail());
-                admin.setPassword(passwordEncoder.encode(admins.get(0).getPassword()));
-                admin.setAuthorities(admins.get(0).getAuthorities());
-
-                user.setEmail(users.get(0).getEmail());
-                user.setPassword(passwordEncoder.encode(users.get(0).getPassword()));
-                user.setAuthorities(users.get(0).getAuthorities());
-
-                userRepository.saveAll(List.of(admin, user));
-                userRepository.findAll().forEach(savedUser -> log.info("Preloaded " + savedUser.getEmail() + ", ROLES: " + savedUser.getAuthorities()));
+            if (!loadDefaultUsers) {
+                return;
             }
+            users.stream()
+                    .map(u -> u.setPassword(passwordEncoder.encode(u.getPassword())))
+                    .forEach(userRepository::save);
+            userRepository.findAll()
+                    .forEach(user -> log.info("Preloaded " + user.getEmail() + ", ROLES: " + user.getAuthorities()));
         };
     }
 }

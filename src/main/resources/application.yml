@@ -4,38 +4,31 @@ app:
 
 datasets:
   notes:
-    -
-      content: vacuum
+    - content: vacuum
       label: GREEN
       done: true
       modifiedLong: 2022-11-25T12:53:00.599125
-    -
-      content: buy grocery
+    - content: buy grocery
       label: YELLOW
       done: false
       modifiedLong: 2023-04-30T07:21:15.599125
-    -
-      content: pay bills
+    - content: pay bills
       label: RED
       done: false
       modifiedLong: 2023-04-20T17:26:15.599125
-    -
-      content: wash car
+    - content: wash car
       label: YELLOW
       done: false
       modifiedLong: 2023-05-29T20:10:17.599125
 
 defaultusers:
-  admins:
-    -
-      email: admin@gmail.com
+  users:
+    - email: admin@gmail.com
       password: Admin!111
       authorities:
         - ADMIN
         - USER
-  users:
-    -
-      email: user@gmail.com
+    - email: user@gmail.com
       password: User!111
       authorities:
         - USER

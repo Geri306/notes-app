@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("logout")
 public class LogoutEndpoint {
-
     @GetMapping
     public void logout() {
-        // Clear authentication from SecurityContextHolder
         SecurityContextHolder.clearContext();
     }
 }

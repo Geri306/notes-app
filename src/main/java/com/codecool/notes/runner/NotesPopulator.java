@@ -1,4 +1,4 @@
-package com.codecool.notes.configuration;
+package com.codecool.notes.runner;
 
 import com.codecool.notes.persistence.entity.Note;
 import com.codecool.notes.persistence.repository.NoteRepository;
@@ -16,14 +16,14 @@ import java.util.List;
 @ConfigurationProperties(prefix = "datasets")
 @Setter
 @Slf4j
-public class DefaultDatasetConfig {
+public class NotesPopulator {
 
     @Value("${app.loadDefaultDataset:false}")
     private boolean loadDefaultDataset;
     private List<Note> notes;
 
     @Bean
-    ApplicationRunner populateDatabase(NoteRepository noteRepository) {
+    ApplicationRunner populateNotes(NoteRepository noteRepository) {
         return args -> {
             if (loadDefaultDataset) {
                 noteRepository.saveAll(notes);

@@ -5,7 +5,6 @@ import com.codecool.notes.api.controller.dto.RegistrationDto;
 import com.codecool.notes.api.exception.validation.InvalidEmailException;
 import com.codecool.notes.api.exception.validation.InvalidPasswordException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

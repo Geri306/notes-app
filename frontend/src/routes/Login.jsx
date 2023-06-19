@@ -11,31 +11,29 @@ export default function Login({setRoles, setLoggedIn}) {
     const authString = `${email}:${password}`
     const encodedAuth = Buffer.from(authString).toString('base64')
 
+    const requestOptions = {
+        method: 'post',
+        url: 'http://localhost:9000/login',
+        headers: {'Authorization': 'Basic ' + encodedAuth}
+    };
+
     async function handleLogin(e) {
         e.preventDefault()
         if (!email || !password) {
-            return alert("email and password cannot be empty")
+            alert("email and password cannot be empty")
+            return
         }
         try {
-            const {data} = await axios({
-                method: 'post',
-                url: 'http://localhost:9000/login',
-                headers: {'Authorization': 'Basic ' + encodedAuth}
-            })
-            localStorage.setItem("credentials", encodedAuth)
-            localStorage.setItem("roles", data)
+            const {data: {roles, token}} = await axios(requestOptions)
+            localStorage.setItem("token", token)
             setLoggedIn(email)
-            setRoles(data)
-            alert(`login successful with ${data} role(s), you'll be redirected..`)
+            setRoles(roles)
+            alert(`login successful with ${roles} role(s), you'll be redirected..`)
             navigate("/")
-        } catch (err) {
-            console.error(err)
-            alert(err)
+        } catch (e) {
+            console.error(e)
+            alert(e)
         }
-    }
-
-    function handleCancel() {
-        navigate("/")
     }
 
     return (
@@ -77,7 +75,7 @@ export default function Login({setRoles, setLoggedIn}) {
                     <input
                         type="button"
                         value="Cancel"
-                        onClick={handleCancel}
+                        onClick={() => navigate("/")}
                     />
                 </div>
             </form>

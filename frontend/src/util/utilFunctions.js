@@ -20,7 +20,3 @@ export async function updateNoteInDb(wantedId, updatedNote) {
 export function handleError(message, error) {
     console.error(message + error)
 }
-
-
-
-

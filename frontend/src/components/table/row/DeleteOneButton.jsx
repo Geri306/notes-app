@@ -9,12 +9,9 @@ export default function DeleteOneButton({note, fetchData}) {
         }
         axiosInstance.delete(`api/v1/notes/${note.id}`)
             .then(() => fetchData())
-            .catch(err => {
-                const {response:{data: {message, status}}} = err
-                alert(`${message} - ${status} `)
-            }
-    );
+            .catch(err => alert(err.message));
     }
+
     return (
         <td>
             <Button

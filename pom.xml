@@ -10,14 +10,14 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.codecool</groupId>
+    <groupId>com.gergokovacs</groupId>
     <artifactId>note-it</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>note-it</name>
     <description>TableRow taking app: frontend with React.js, backend with Spring Boot</description>
 
     <properties>
-        <start-class>com.codecool.notes.NotesApp</start-class>
+        <start-class>com.gergokovacs.notes.NotesApp</start-class>
         <java.version>17</java.version>
     </properties>
 
@@ -159,6 +159,10 @@
         </dependency>
         <!-- JWT END -->
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -168,7 +172,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.codecool.notes.NotesApp</mainClass>
+                    <mainClass>com.gergokovacs.notes.NotesApp</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

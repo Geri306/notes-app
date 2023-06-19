@@ -6,7 +6,7 @@ import Index from "./routes/Index.jsx";
 import Registration from "./routes/Registration.jsx";
 import {useEffect, useState} from "react";
 import Logout from "./routes/Logout.jsx";
-import {Buffer} from "buffer";
+import axiosInstance from "./util/apiClient.js";
 
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -16,20 +16,25 @@ export default function App() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedCredentials = localStorage.getItem("credentials")
-        if (!storedCredentials) {
-            return localStorage.removeItem("roles")
+        if (!localStorage.getItem("token")) {
+            setLoggedIn(null)
+            setRoles([])
+            return
         }
-        const buffer = Buffer.from(storedCredentials, 'base64');
-        const email = buffer.toString('utf-8').split(":")[0]
-        const roles = localStorage.getItem("roles").split(",")
-        setLoggedIn(email)
-        setRoles(roles)
+        try {
+            (async () => {
+                const {data: {roles, email}} = await axiosInstance.get("http://localhost:9000/latest_userdetails");
+                setRoles(roles)
+                setLoggedIn(email)
+            })()
+        } catch (e) {
+            console.error(e)
+            localStorage.removeItem("token")
+        }
     }, []);
 
     function handleLogout() {
-        localStorage.removeItem("credentials")
-        localStorage.removeItem("roles")
+        localStorage.removeItem("token")
         setLoggedIn(null)
         setRoles([])
         navigate("/")

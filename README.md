@@ -2,6 +2,7 @@
 
 <img width="960" alt="image" src="https://github.com/Geri306/notes-app/assets/107036298/93977a2a-d153-4907-9ea7-317b6de24038">
 
+
 Hello World, sziasztok (Hungarian)!
 
 This is my main ongoing showcase project as a junior full-stack developer, finishing at the bootcamp [Codecool](https://codecool.com/at/) in Austria.

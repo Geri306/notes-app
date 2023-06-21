@@ -40,6 +40,9 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 - Custom http response messages and status codes
 
 ---
+<img width="960" alt="image" src="https://github.com/Geri306/notes-app/assets/107036298/34401674-6740-4218-b36e-734a7651e858">
+
+---
 
 **Created: 2023/05/02 (yyyy-mm-dd) <br />
 Last updated: 2023/06/21 (yyyy-mm-dd)**

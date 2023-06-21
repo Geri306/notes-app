@@ -11,47 +11,33 @@ I'm fond of taking notes. Everywhere. Notes are great to secure our recurring an
 
 ### Stack ###
 - Build: Maven
-- [x] Java (data/service classes, Streams)
-- [x] Spring Web:
-  - [x] CRUD functionality in a @RestController
-- [x] Spring Data JPA:
-  - [x] at least one @Entity with a repository
-  - [x] H2 database)
-- [x] Spring Security
-  - [x] basic authentication
-  - [x] Oauth2 Resource Server for JWT
-- [x] Spring tests
-  - [x] @SpringBootTest
-  - [x] @WebMvcTest
-  - [x] @DataJpaTest
-- [x] Spring security tests (@WithMockUser)
-- [x] JUnit:
-  - [x] tests
-  - [x] parameterized tests
-- [x] Mockito
-- [x] Postgres
-- [x] React.js:
-  - [x] several components
-  - [x] use of several hooks
-  - [x] custom hook
-- [] React tests:
-  - [] Vitest
-  - [] React Testing Library
-- [x] JavaScript + HTML + CSS & Bootstrap
+- Backend: Java SE 17 (data/service classes, Streams) + Spring Boot 3
+- Frontend: ReactJS, JavaScript, HTML, CSS, Bootstrap
+- Database: Postgres
 
-### Core features: ###
-- frontend with ReactJS
-- security: registration & login authentication
-- tests, tests, tests
-- backend with Spring Boot
-    - data class that represents the model/domain ✅
-    - service class that can handle CRUD operations, communicating with a repository class ✅
-    - endpoint class delegate logic to service class that communicates with database through JpaRepository interface ✅
-- preloaded default notes and users from YAML
-- logging preloaded datasets
-- connected to postgres database
-- custom exceptions
-- custom http response messages and status codes
+### Tech specs: ###
+- n-tier architecture
+- Data class that represents the model/domain
+- Service class that can handle CRUD operations, communicating with a repository class
+- Endpoint class delegate logic to service class that communicates with database through JpaRepository interface
+- DTO mappings to facilitate cleaner communication between backend and frontend
+- Spring Web CRUD functionality in a @RestController
+- Spring Data JPA with Postgres
+- Spring Security: http basic login followed by JWT authentication on each request (OAuth2 Resource Server)
+- Layered authorization
+- Spring tests (@SpringBootTest)
+- Web layer test (@WebMvcTest)
+- Repository tests (@DataJpaTest)
+- Spring security tests (@WithMockUser)
+- Parameterized unit tests with JUnit
+- Behavioral tests with Mockito
+- React components & hooks, custom hook
+- Preloaded default notes and users from YAML
+- Lombok
+- Axios
+- Logging
+- Custom exceptions
+- Custom http response messages and status codes
 
 ---
 
